@@ -1,0 +1,20 @@
+<div class="row">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		<fieldset>
+			<legend> #i18n{module.workflow.userassignment.task.user.assign.config.title}</legend>
+			
+			<@formGroup labelFor="providerName" labelKey="#i18n{module.workflow.userassignment.task.user.assign.config.user.choice}">
+				<#if provider_list?has_content>
+					<#list provider_list as provider>
+						<#if selected_provider?? && selected_provider == provider.getName()>
+							<#assign checked=true>
+						<#else>
+							<#assign checked=false>
+						</#if>
+						<@radioButton name="providerName" value='${provider.getName()}' mandatory=true labelKey='#i18n{${provider.getLabelKey()}}' checked=checked />
+					</#list>
+				</#if>
+			</@formGroup>
+		</fieldset>
+	</div>
+</div>

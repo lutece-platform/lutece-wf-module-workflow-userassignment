@@ -85,7 +85,7 @@ public class ResourceUserDAO implements IResourceUserDAO {
 	}
 
 	@Override
-	public List<AdminUser> selectUserListByFormResponse( int resourceID, String resourceType, Plugin plugin )
+	public List<AdminUser> selectUserListByResource( int resourceID, String resourceType, Plugin plugin )
 	{
 		List<AdminUser> result = new ArrayList<>( );
 		try ( DAOUtil daoUtil = new DAOUtil( SQL_SELECT_USER_BY_RESOURCE, Statement.RETURN_GENERATED_KEYS, plugin ) )

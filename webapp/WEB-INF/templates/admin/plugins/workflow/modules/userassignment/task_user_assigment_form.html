@@ -1,0 +1,26 @@
+<div class="row" >
+	<#if list_user_selection?has_content>
+		<@formGroup labelFor="user_selection_id" labelKey="#i18n{module.workflow.userassignment.task.user.labelUserSelection}">
+			<#if list_user_selection?size == 1>
+				<#list list_user_selection as user_selection >
+					<input type="hidden" name="user_selection_id" value="${user_selection.userId}" />
+					<@staticText>
+			           	${user_selection.firstName} ${user_selection.lastName}
+			        </@staticText>
+				</#list>
+			<#else>
+				<select id="user_selection_id" name="user_selection_id" class="form-control">
+					<#list list_user_selection as user_selection >
+						<option value="${user_selection.userId}"> ${user_selection.firstName} ${user_selection.lastName}</option>
+					</#list>
+				</select>
+			</#if>
+		</@formGroup>
+	<#else>
+		<@formGroup>
+			<@staticText >
+				<em>#i18n{module.workflow.userassignment.task.user.noUnitSelection}</em>
+			</@staticText>
+		</@formGroup>
+	</#if>
+</div>

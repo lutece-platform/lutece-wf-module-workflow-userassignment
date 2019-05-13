@@ -5,6 +5,8 @@ import java.util.Locale;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
+import fr.paris.lutece.plugins.workflow.modules.userassignment.business.information.UserTaskInformation;
+import fr.paris.lutece.plugins.workflow.modules.userassignment.business.information.UserTaskInformationHome;
 import fr.paris.lutece.plugins.workflowcore.business.resource.ResourceHistory;
 import fr.paris.lutece.plugins.workflowcore.service.resource.IResourceHistoryService;
 import fr.paris.lutece.plugins.workflowcore.service.task.SimpleTask;
@@ -34,11 +36,24 @@ private static final String MESSAGE_TASK_TITLE = "module.workflow.userassignment
 	{
 		 ResourceHistory resourceHistory = _resourceHistoryService.findByPrimaryKey( nIdResourceHistory );
 		 
-		 String strUnitSelectionId = request.getParameter( PARAMETER_USER_ID );
-		 
-		 AdminUser user = AdminUserHome.findByPrimaryKey( Integer.valueOf( strUnitSelectionId ) );
+		 if ( resourceHistory != null )
+		 {
+			 String strUnitSelectionId = request.getParameter( PARAMETER_USER_ID );
+			 
+			 AdminUser user = AdminUserHome.findByPrimaryKey( Integer.valueOf( strUnitSelectionId ) );
 		 
 			 _assignUserResourceTaskService.assignUserToResource( user, resourceHistory.getIdResource( ), resourceHistory.getResourceType( ) );
+		
+			 saveUserTaskInformation(resourceHistory.getId( ), user );
+		 }
+	}
+	
+	private void saveUserTaskInformation(int nIdResourceHistory, AdminUser userAssigned ) {
+		UserTaskInformation taskInformation = new UserTaskInformation( nIdResourceHistory, getId( ) );
+        taskInformation.add( UserTaskInformation.TASK_INFORMATION_ASSIGNED_USER_NAME, userAssigned.getFirstName( ) );
+        taskInformation.add( UserTaskInformation.TASK_INFORMATION_ASSIGNED_USER_LASTNAME, userAssigned.getLastName( ) );
+        
+        UserTaskInformationHome.create(taskInformation);
 	}
 	
 	@Override

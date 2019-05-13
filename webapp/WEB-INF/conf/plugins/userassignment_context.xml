@@ -8,5 +8,7 @@
 	<bean id="userassignment.resourceUserDAO" class="fr.paris.lutece.plugins.workflow.modules.userassignment.business.ResourceUserDAO" />
 	<bean id="userassignment.assignUserResourceTaskConfigDao" class="fr.paris.lutece.plugins.workflow.modules.userassignment.business.AssignUserResourceTaskConfigDao" />
 	
-	
+	<!-- AdminUserListProvide -->
+	<bean id="userassignment.selfAssignAdminUserListProvider" class="fr.paris.lutece.plugins.workflow.modules.userassignment.business.SelfAssignAdminUserListProvider"/>
+
 </beans>

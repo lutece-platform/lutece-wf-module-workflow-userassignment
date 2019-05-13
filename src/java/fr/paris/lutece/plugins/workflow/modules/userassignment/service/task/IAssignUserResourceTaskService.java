@@ -30,4 +30,19 @@ public interface IAssignUserResourceTaskService {
 	 * @return
 	 */
 	List<AdminUser> createUserList(HttpServletRequest request, ITask task, int resourceKey, String resourceType);
+	
+	/**
+	 * Unassign the user.
+	 * @param user
+	 * @param formResponse
+	 */
+	void unassignUserToResource( AdminUser user, int resourceId, String resourceType );
+	
+	/**
+	 * List active users by resource.
+	 * @param resourceId
+	 * @param resourceType
+	 * @return
+	 */
+	List<AdminUser> listActiveUserByResource( int resourceId, String resourceType );
 }

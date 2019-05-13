@@ -101,4 +101,16 @@ public class AssignUserResourceTaskService implements IAssignUserResourceTaskSer
 	{
 		return SpringContextService.getBeansOfType( IAdminUserListProvider.class );
 	}
+	
+	@Override
+	public void unassignUserToResource( AdminUser user, int resourceId, String resourceType )
+	{
+		resourceUserDAO.deactivateByUserResource( user.getUserId( ), resourceId, resourceType, workflowPlugin );
+	}
+	
+	@Override
+	public List<AdminUser> listActiveUserByResource( int resourceId, String resourceType )
+	{
+		return resourceUserDAO.selectUserListByResource( resourceId, resourceType, workflowPlugin );
+	}
 }

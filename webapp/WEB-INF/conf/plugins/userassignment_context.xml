@@ -18,7 +18,7 @@
 	<!-- AdminUserListProvide -->
 	<bean id="userassignment.selfAssignAdminUserListProvider" class="fr.paris.lutece.plugins.workflow.modules.userassignment.business.SelfAssignAdminUserListProvider"/>
 
-	<!-- Task -->
+	<!-- Assign Task -->
 	<bean id="userassignment.assignUserResourceTask"
         class="fr.paris.lutece.plugins.workflow.modules.userassignment.service.task.AssignUserResourceTask"
         scope="prototype" />
@@ -41,4 +41,22 @@
         p:taskType-ref="userassignment.assignUserResourceTypeTask"
         p:taskConfigService-ref="userassignment.assignUserResourceTaskConfigService"
         scope="prototype" />
+        
+     <!-- Unassign Task -->
+     <bean id="userassignment.unassignUserResourceTask"
+        class="fr.paris.lutece.plugins.workflow.modules.userassignment.service.task.UnassignUserResourceTask"
+        scope="prototype" />
+        
+     <bean id="userassignment.unassignUserResourceTypeTask"
+        class="fr.paris.lutece.plugins.workflowcore.business.task.TaskType"
+        p:key="unassignUserResourceTask"
+        p:titleI18nKey="module.workflow.userassignment.task.user.unassign.title"
+        p:beanName="userassignment.unassignUserResourceTask"
+        p:taskForAutomaticAction="false"
+        p:configRequired="false"
+        p:formTaskRequired="true" />
+        
+     <bean id="userassignment.unassignUserResourceTaskComponent"
+        class="fr.paris.lutece.plugins.workflow.modules.userassignment.web.task.UnassignUserResourceTaskComponent"
+        p:taskType-ref="userassignment.unassignUserResourceTypeTask" />
 </beans>

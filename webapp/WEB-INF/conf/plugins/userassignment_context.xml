@@ -59,4 +59,9 @@
      <bean id="userassignment.unassignUserResourceTaskComponent"
         class="fr.paris.lutece.plugins.workflow.modules.userassignment.web.task.UnassignUserResourceTaskComponent"
         p:taskType-ref="userassignment.unassignUserResourceTypeTask" />
+        
+     <!-- Prerequisites -->
+     <bean id="userassignment.noUserAssignedPrerequisite" class="fr.paris.lutece.plugins.workflow.modules.userassignment.service.task.NoUserAssignedPrerequisite"/>
+     <bean id="userassignment.userAssignedPrerequisite" class="fr.paris.lutece.plugins.workflow.modules.userassignment.service.task.UserAssignedPrerequisite"/>
 </beans>
+

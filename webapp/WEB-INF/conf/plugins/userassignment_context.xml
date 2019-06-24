@@ -11,7 +11,6 @@
 	p:taskConfigDAO-ref="userassignment.assignUserResourceTaskConfigDao" />
 	
 	<!-- Dao -->
-	<bean id="userassignment.resourceUserDAO" class="fr.paris.lutece.plugins.workflow.modules.userassignment.business.ResourceUserDAO" />
 	<bean id="userassignment.assignUserResourceTaskConfigDao" class="fr.paris.lutece.plugins.workflow.modules.userassignment.business.AssignUserResourceTaskConfigDao" />
 	<bean id="userassignment.userTaskInformationDAO" class="fr.paris.lutece.plugins.workflow.modules.userassignment.business.information.UserTaskInformationDAO" />
 	

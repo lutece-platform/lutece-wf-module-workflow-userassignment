@@ -42,7 +42,7 @@ import fr.paris.lutece.portal.service.spring.SpringContextService;
 public final class UserTaskInformationHome
 {
     // Static variable pointed at the DAO instance
-    private static IUserTaskInformationDAO _dao = SpringContextService.getBean( "userassignment.userTaskInformationDAO" );
+    private static IUserTaskInformationDAO _dao = SpringContextService.getBean( "workflow-userassignment.userTaskInformationDAO" );
 
     /**
      * Private constructor

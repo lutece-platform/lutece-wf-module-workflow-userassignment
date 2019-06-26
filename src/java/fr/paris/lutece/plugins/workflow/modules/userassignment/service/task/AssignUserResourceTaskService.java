@@ -6,10 +6,10 @@ import java.util.function.Predicate;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
+import fr.paris.lutece.plugins.userassignment.business.IResourceUserDAO;
+import fr.paris.lutece.plugins.userassignment.business.ResourceUser;
 import fr.paris.lutece.plugins.workflow.modules.userassignment.business.AssignUserResourceTaskConfig;
 import fr.paris.lutece.plugins.workflow.modules.userassignment.business.IAdminUserListProvider;
-import fr.paris.lutece.plugins.workflow.modules.userassignment.business.IResourceUserDAO;
-import fr.paris.lutece.plugins.workflow.modules.userassignment.business.ResourceUser;
 import fr.paris.lutece.plugins.workflow.modules.userassignment.business.SelfAssignAdminUserListProvider;
 import fr.paris.lutece.plugins.workflow.service.WorkflowPlugin;
 import fr.paris.lutece.plugins.workflowcore.business.config.ITaskConfigDAO;

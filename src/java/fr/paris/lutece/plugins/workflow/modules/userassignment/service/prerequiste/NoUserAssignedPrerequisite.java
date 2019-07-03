@@ -1,10 +1,11 @@
-package fr.paris.lutece.plugins.workflow.modules.userassignment.service.task;
+package fr.paris.lutece.plugins.workflow.modules.userassignment.service.prerequiste;
 
+import fr.paris.lutece.plugins.workflow.modules.userassignment.service.task.AbstractUserAssignedPrerequisite;
+import fr.paris.lutece.plugins.workflow.service.prerequisite.IManualActionPrerequisiteService;
 import fr.paris.lutece.plugins.workflowcore.business.prerequisite.IPrerequisiteConfig;
-import fr.paris.lutece.plugins.workflowcore.service.prerequisite.IAutomaticActionPrerequisiteService;
 
 public class NoUserAssignedPrerequisite extends AbstractUserAssignedPrerequisite
-implements IAutomaticActionPrerequisiteService {
+implements IManualActionPrerequisiteService {
 
 	private static final String PREREQUISITE_TITLE_I18N = "module.workflow.userassignment.prerequisite.nouser.title";
 	private static final String PREREQUISITE_TYPE = "module.workflow.userassignment.prerequisite.nouser";

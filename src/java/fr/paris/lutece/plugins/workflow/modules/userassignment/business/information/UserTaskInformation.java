@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2017, Mairie de Paris
+ * Copyright (c) 2002-2020, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -42,10 +42,10 @@ import java.util.Map;
  */
 public class UserTaskInformation
 {
-	public static final String TASK_INFORMATION_ASSIGNED_USER_NAME = "ASSIGNED_USER_NAME";
-	public static final String TASK_INFORMATION_ASSIGNED_USER_LASTNAME = "ASSIGNED_USER_LASTNAME";
-	public static final String TASK_INFORMATION_UNASSIGNOR = "UNASSIGNOR";
-	
+    public static final String TASK_INFORMATION_ASSIGNED_USER_NAME = "ASSIGNED_USER_NAME";
+    public static final String TASK_INFORMATION_ASSIGNED_USER_LASTNAME = "ASSIGNED_USER_LASTNAME";
+    public static final String TASK_INFORMATION_UNASSIGNOR = "UNASSIGNOR";
+
     private final int _nIdHistory;
     private final int _nIdTask;
     private final Map<String, String> _items;

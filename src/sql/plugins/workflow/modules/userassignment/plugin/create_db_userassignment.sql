@@ -7,8 +7,8 @@ CREATE TABLE workflow_task_assign_user_config (
 
 DROP TABLE IF EXISTS workflow_task_assign_user_information;
 CREATE TABLE workflow_task_assign_user_information (
-  id_history int(11) NOT NULL,
-  id_task int(11) NOT NULL,
+  id_history INT NOT NULL,
+  id_task INT NOT NULL,
   information_key VARCHAR(255) NOT NULL,
   information_value VARCHAR(255) NULL
 );

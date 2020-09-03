@@ -57,9 +57,9 @@ public class AssignUserResourceTaskService implements IAssignUserResourceTaskSer
 
     private static List<IAdminUserListProvider> _providerList;
 
-    private final Plugin workflowPlugin;
-    private final IResourceUserDAO resourceUserDAO;
-    private final ITaskConfigDAO<AssignUserResourceTaskConfig> taskConfigDAO;
+    private final Plugin _workflowPlugin;
+    private final IResourceUserDAO _resourceUserDAO;
+    private final ITaskConfigDAO<AssignUserResourceTaskConfig> _taskConfigDAO;
 
     /**
      * Constructor
@@ -68,15 +68,15 @@ public class AssignUserResourceTaskService implements IAssignUserResourceTaskSer
     @Inject
     public AssignUserResourceTaskService( IResourceUserDAO resourceUserDAO, ITaskConfigDAO<AssignUserResourceTaskConfig> taskConfigDAO )
     {
-        this.workflowPlugin = PluginService.getPlugin( WorkflowPlugin.PLUGIN_NAME );
-        this.resourceUserDAO = resourceUserDAO;
-        this.taskConfigDAO = taskConfigDAO;
+        this._workflowPlugin = PluginService.getPlugin( WorkflowPlugin.PLUGIN_NAME );
+        this._resourceUserDAO = resourceUserDAO;
+        this._taskConfigDAO = taskConfigDAO;
     }
 
     @Override
     public void assignUserToResource( AdminUser user, int resourceId, String resourceType )
     {
-        List<AdminUser> assignedUsers = resourceUserDAO.selectUserListByResource( resourceId, resourceType, workflowPlugin );
+        List<AdminUser> assignedUsers = _resourceUserDAO.selectUserListByResource( resourceId, resourceType, _workflowPlugin );
 
         boolean alreadyAssigned = null != assignedUsers.stream( ).map( AdminUser::getUserId ).filter( Predicate.isEqual( user.getUserId( ) ) ).findFirst( )
                 .orElse( null );
@@ -89,7 +89,7 @@ public class AssignUserResourceTaskService implements IAssignUserResourceTaskSer
             resourceUser.setAdminUser( user );
             resourceUser.setActive( true );
 
-            resourceUserDAO.insert( resourceUser, workflowPlugin );
+            _resourceUserDAO.insert( resourceUser, _workflowPlugin );
         }
 
     }
@@ -107,7 +107,7 @@ public class AssignUserResourceTaskService implements IAssignUserResourceTaskSer
     @Override
     public List<AdminUser> createUserList( HttpServletRequest request, ITask task, int resourceKey, String resourceType )
     {
-        AssignUserResourceTaskConfig config = taskConfigDAO.load( task.getId( ) );
+        AssignUserResourceTaskConfig config = _taskConfigDAO.load( task.getId( ) );
         IAdminUserListProvider provider = null;
         if ( config != null )
         {
@@ -135,12 +135,12 @@ public class AssignUserResourceTaskService implements IAssignUserResourceTaskSer
     @Override
     public void unassignUserToResource( AdminUser user, int resourceId, String resourceType )
     {
-        resourceUserDAO.deactivateByUserResource( user.getUserId( ), resourceId, resourceType, workflowPlugin );
+        _resourceUserDAO.deactivateByUserResource( user.getUserId( ), resourceId, resourceType, _workflowPlugin );
     }
 
     @Override
     public List<AdminUser> listActiveUserByResource( int resourceId, String resourceType )
     {
-        return resourceUserDAO.selectUserListByResource( resourceId, resourceType, workflowPlugin );
+        return _resourceUserDAO.selectUserListByResource( resourceId, resourceType, _workflowPlugin );
     }
 }

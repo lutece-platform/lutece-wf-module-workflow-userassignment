@@ -42,14 +42,14 @@ import fr.paris.lutece.plugins.workflowcore.business.config.TaskConfig;
 public class AssignUserResourceTaskConfig extends TaskConfig
 {
 
-    private String providerName;
+    private String _providerName;
 
     /**
      * @return the providerName
      */
     public String getProviderName( )
     {
-        return providerName;
+        return _providerName;
     }
 
     /**
@@ -58,7 +58,7 @@ public class AssignUserResourceTaskConfig extends TaskConfig
      */
     public void setProviderName( String providerName )
     {
-        this.providerName = providerName;
+        this._providerName = providerName;
     }
 
 }

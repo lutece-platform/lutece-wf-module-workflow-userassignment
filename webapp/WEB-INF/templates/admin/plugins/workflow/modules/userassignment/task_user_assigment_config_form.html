@@ -11,7 +11,7 @@
 						<#else>
 							<#assign checked=false>
 						</#if>
-						<@radioButton name="providerName" value='${provider.getName()}' mandatory=true labelKey='#i18n{${provider.getLabelKey()}}' checked=checked />
+						<@radioButton name="providerName" value='${provider.getName()}' labelKey='#i18n{${provider.getLabelKey()}}' checked=checked />
 					</#list>
 				</#if>
 			</@formGroup>

@@ -49,7 +49,7 @@ public final class UserTaskInformationDAO implements IUserTaskInformationDAO
     private static final String SQL_QUERY_INSERT_VALUE = "( ?, ?, ?, ? )";
     private static final String SQL_QUERY_INSERT_VALUE_SEPARATOR = ",";
     private static final String SQL_QUERY_DELETE = "DELETE FROM workflow_task_assign_user_information WHERE id_history = ? AND id_task = ?";
-    
+
     /**
      * {@inheritDoc }
      */
@@ -134,7 +134,8 @@ public final class UserTaskInformationDAO implements IUserTaskInformationDAO
             int nIndex = 0;
             daoUtil.setInt( ++nIndex, nIdHistory );
             daoUtil.setInt( ++nIndex, nIdTask );
-            daoUtil.executeUpdate( );;
+            daoUtil.executeUpdate( );
+            ;
         }
     }
 }

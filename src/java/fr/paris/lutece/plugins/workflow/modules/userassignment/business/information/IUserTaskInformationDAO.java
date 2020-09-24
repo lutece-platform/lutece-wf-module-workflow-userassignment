@@ -56,9 +56,10 @@ public interface IUserTaskInformationDAO
      * @return The task information
      */
     UserTaskInformation load( int nIdHistory, int nIdTask );
-    
+
     /**
      * Deletes the data by idHistory an idTask
+     * 
      * @param nIdHistory
      * @param nIdTask
      */

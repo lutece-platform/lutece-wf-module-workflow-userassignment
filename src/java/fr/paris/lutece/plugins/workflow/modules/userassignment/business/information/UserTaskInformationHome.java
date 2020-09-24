@@ -87,7 +87,6 @@ public final class UserTaskInformationHome
      *            the history id
      * @param nIdTask
      *            the task id
-     * @return the task information
      */
     public static void remove( int nIdHistory, int nIdTask )
     {

@@ -80,4 +80,18 @@ public final class UserTaskInformationHome
         return _dao.load( nIdHistory, nIdTask );
     }
 
+    /**
+     * Deletes the task information for the specified couple {history id, task id}
+     * 
+     * @param nIdHistory
+     *            the history id
+     * @param nIdTask
+     *            the task id
+     * @return the task information
+     */
+    public static void remove( int nIdHistory, int nIdTask )
+    {
+        _dao.deleteByHistoryTask( nIdHistory, nIdTask );
+    }
+    
 }

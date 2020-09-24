@@ -50,7 +50,7 @@ public class WorkflowUserassignmentDeleteArchiveProcessingService extends Abstra
     public static final String BEAN_NAME = "workflow-userassignment.workflowUserassignmentDeleteArchiveProcessingService";
     private static final String TASK_TYPE_USER_ASSIGN = "assignUserResourceTask";
     private static final String TASK_TYPE_USER_UNASSIGN = "unassignUserResourceTask";
-    
+
     @Override
     public void archiveResource( ResourceWorkflow resourceWorkflow )
     {
@@ -59,11 +59,11 @@ public class WorkflowUserassignmentDeleteArchiveProcessingService extends Abstra
 
         archiveTaskAssignUser( historyList );
         archiveTaskUnassignUser( historyList );
-        
+
         ResourceUserHome.deleteByResource( resourceWorkflow.getIdResource( ), resourceWorkflow.getResourceType( ) );
     }
-    
-    private void archiveTaskUser(  List<ResourceHistory> historyList, String taskType )
+
+    private void archiveTaskUser( List<ResourceHistory> historyList, String taskType )
     {
         for ( ResourceHistory history : historyList )
         {
@@ -76,12 +76,12 @@ public class WorkflowUserassignmentDeleteArchiveProcessingService extends Abstra
         }
     }
 
-    private void archiveTaskAssignUser(  List<ResourceHistory> historyList )
+    private void archiveTaskAssignUser( List<ResourceHistory> historyList )
     {
         archiveTaskUser( historyList, TASK_TYPE_USER_ASSIGN );
     }
-    
-    private void archiveTaskUnassignUser(  List<ResourceHistory> historyList )
+
+    private void archiveTaskUnassignUser( List<ResourceHistory> historyList )
     {
         archiveTaskUser( historyList, TASK_TYPE_USER_UNASSIGN );
     }

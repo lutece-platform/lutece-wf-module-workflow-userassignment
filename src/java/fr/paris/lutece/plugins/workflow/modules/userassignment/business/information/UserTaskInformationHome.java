@@ -93,5 +93,5 @@ public final class UserTaskInformationHome
     {
         _dao.deleteByHistoryTask( nIdHistory, nIdTask );
     }
-    
+
 }

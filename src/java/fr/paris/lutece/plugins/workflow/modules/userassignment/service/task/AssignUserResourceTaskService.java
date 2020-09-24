@@ -55,8 +55,6 @@ import fr.paris.lutece.portal.service.spring.SpringContextService;
 public class AssignUserResourceTaskService implements IAssignUserResourceTaskService
 {
 
-    private static List<IAdminUserListProvider> _providerList;
-
     private final Plugin _workflowPlugin;
     private final IResourceUserDAO _resourceUserDAO;
     private final ITaskConfigDAO<AssignUserResourceTaskConfig> _taskConfigDAO;
@@ -97,11 +95,7 @@ public class AssignUserResourceTaskService implements IAssignUserResourceTaskSer
     @Override
     public List<IAdminUserListProvider> getProviderList( )
     {
-        if ( _providerList == null )
-        {
-            _providerList = initProviderList( );
-        }
-        return _providerList;
+        return SpringContextService.getBeansOfType( IAdminUserListProvider.class );
     }
 
     @Override
@@ -125,11 +119,6 @@ public class AssignUserResourceTaskService implements IAssignUserResourceTaskSer
             provider = new SelfAssignAdminUserListProvider( );
         }
         return provider.getUserList( request, resourceKey, resourceType );
-    }
-
-    private static List<IAdminUserListProvider> initProviderList( )
-    {
-        return SpringContextService.getBeansOfType( IAdminUserListProvider.class );
     }
 
     @Override

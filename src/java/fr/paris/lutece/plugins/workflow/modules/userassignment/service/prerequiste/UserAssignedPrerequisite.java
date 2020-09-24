@@ -34,10 +34,9 @@
 package fr.paris.lutece.plugins.workflow.modules.userassignment.service.prerequiste;
 
 import fr.paris.lutece.plugins.workflow.modules.userassignment.service.task.AbstractUserAssignedPrerequisite;
-import fr.paris.lutece.plugins.workflow.service.prerequisite.IManualActionPrerequisiteService;
 import fr.paris.lutece.plugins.workflowcore.business.prerequisite.IPrerequisiteConfig;
 
-public class UserAssignedPrerequisite extends AbstractUserAssignedPrerequisite implements IManualActionPrerequisiteService
+public class UserAssignedPrerequisite extends AbstractUserAssignedPrerequisite
 {
 
     private static final String PREREQUISITE_TITLE_I18N = "module.workflow.userassignment.prerequisite.user.title";

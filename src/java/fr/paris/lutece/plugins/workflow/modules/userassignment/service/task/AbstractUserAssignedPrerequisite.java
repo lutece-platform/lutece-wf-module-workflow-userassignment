@@ -39,31 +39,36 @@ import java.util.Locale;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
+import fr.paris.lutece.plugins.workflow.service.prerequisite.IManualActionPrerequisiteService;
 import fr.paris.lutece.plugins.workflowcore.business.prerequisite.DefaultPrerequisiteConfig;
 import fr.paris.lutece.plugins.workflowcore.business.prerequisite.IPrerequisiteConfig;
 import fr.paris.lutece.portal.business.user.AdminUser;
 
-public abstract class AbstractUserAssignedPrerequisite
+public abstract class AbstractUserAssignedPrerequisite implements IManualActionPrerequisiteService
 {
 
     @Inject
     private IAssignUserResourceTaskService _assignUserResourceTaskService;
 
+    @Override
     public boolean hasConfiguration( )
     {
         return false;
     }
 
+    @Override
     public String getConfigHtml( IPrerequisiteConfig config, HttpServletRequest request, Locale locale )
     {
         return null;
     }
 
+    @Override
     public IPrerequisiteConfig getEmptyConfiguration( )
     {
         return new DefaultPrerequisiteConfig( );
     }
 
+    @Override
     public String getConfigurationDaoBeanName( )
     {
         return null;

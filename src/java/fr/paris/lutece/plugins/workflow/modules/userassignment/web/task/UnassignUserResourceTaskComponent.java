@@ -109,7 +109,7 @@ public class UnassignUserResourceTaskComponent extends NoConfigTaskComponent
 
         if ( taskInformation != null )
         {
-            Map<String, Object> model = new HashMap<String, Object>( );
+            Map<String, Object> model = new HashMap<>( );
             model.put( MARK_TASK_INFORMATION, taskInformation );
 
             HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_TASK_INFORMATION, locale, model );

@@ -5,6 +5,7 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
+import fr.paris.lutece.api.user.User;
 import fr.paris.lutece.plugins.userassignment.business.ResourceUserHome;
 import fr.paris.lutece.plugins.workflow.service.prerequisite.IManualActionPrerequisiteService;
 import fr.paris.lutece.plugins.workflowcore.business.prerequisite.DefaultPrerequisiteConfig;
@@ -58,13 +59,13 @@ public class UserAssignedToResourcePrerequisite implements IManualActionPrerequi
 	}
 	
 	@Override
-	public boolean canManualActionBePerformed( AdminUser user, int nIdResource, String strResourceType,
+	public boolean canManualActionBePerformed( User user, int nIdResource, String strResourceType,
 			IPrerequisiteConfig config, int nIdAction )
 	{
 		List<AdminUser> userList = ResourceUserHome.findUserByResource( nIdResource, strResourceType );
 		for ( AdminUser assignedUser : userList)
 		{
-			if ( assignedUser.getUserId( ) == user.getUserId( ) )
+			if ( assignedUser.getUserId( ) == ( (AdminUser) user ).getUserId( ) )
 			{
 				return true;
 			}

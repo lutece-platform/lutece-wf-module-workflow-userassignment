@@ -77,5 +77,11 @@
     <bean
         id="workflow-userassignment.userAssignedToResourcePrerequisite"
         class="fr.paris.lutece.plugins.workflow.modules.userassignment.service.prerequiste.UserAssignedToResourcePrerequisite" />
+        
+    <!-- Archivers -->
+    <bean id="workflow-userassignment.workflowUserassignmentResourceArchiver"
+        class="fr.paris.lutece.plugins.workflow.modules.userassignment.service.archiver.WorkflowUserassignmentResourceArchiver" />
+    <bean id="workflow-userassignment.workflowUserassignmentDeleteArchiveProcessingService"
+        class="fr.paris.lutece.plugins.workflow.modules.userassignment.service.archiver.WorkflowUserassignmentDeleteArchiveProcessingService" />
 </beans>
 

@@ -31,37 +31,43 @@
  *
  * License 1.0
  */
-package fr.paris.lutece.plugins.workflow.modules.userassignment.business.information;
+package fr.paris.lutece.plugins.workflow.modules.userassignment.service.archiver;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import fr.paris.lutece.plugins.workflow.modules.archive.ArchivalType;
+import fr.paris.lutece.plugins.workflow.modules.archive.IResourceArchiver;
+import fr.paris.lutece.plugins.workflow.modules.archive.service.IArchiveProcessingService;
+import fr.paris.lutece.plugins.workflowcore.business.resource.ResourceWorkflow;
 
 /**
- * This interface provides Data Access methods for {@link UserTaskInformation} objects
+ * {@link IResourceArchiver} for all data of module workflow-forms
  */
-public interface IUserTaskInformationDAO
+public class WorkflowUserassignmentResourceArchiver implements IResourceArchiver
 {
-    /**
-     * Inserts a new record in the table.
-     * 
-     * @param taskInformation
-     *            the task information to insert
-     */
-    void insert( UserTaskInformation taskInformation );
+    public static final String BEAN_NAME = "workflow-userassignment.workflowUserassignmentResourceArchiver";
 
-    /**
-     * Loads the data from the table
-     * 
-     * @param nIdHistory
-     *            The history id
-     * @param nIdTask
-     *            The task id
-     * @return The task information
-     */
-    UserTaskInformation load( int nIdHistory, int nIdTask );
-    
-    /**
-     * Deletes the data by idHistory an idTask
-     * @param nIdHistory
-     * @param nIdTask
-     */
-    void deleteByHistoryTask( int nIdHistory, int nIdTask );
+    @Inject
+    @Named( WorkflowUserassignmentDeleteArchiveProcessingService.BEAN_NAME )
+    private IArchiveProcessingService _deleteArchiveProcessingService;
 
+    @Override
+    public void archiveResource( ArchivalType archivalType, ResourceWorkflow resourceWorkflow )
+    {
+        switch( archivalType )
+        {
+            case DELETE:
+                _deleteArchiveProcessingService.archiveResource( resourceWorkflow );
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public String getBeanName( )
+    {
+        return BEAN_NAME;
+    }
 }

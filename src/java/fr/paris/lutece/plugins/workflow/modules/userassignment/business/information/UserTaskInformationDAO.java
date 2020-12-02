@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2017, Mairie de Paris
+ * Copyright (c) 2002-2020, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -76,18 +76,18 @@ public final class UserTaskInformationDAO implements IUserTaskInformationDAO
 
             try ( DAOUtil daoUtil = new DAOUtil( stringBuilder.toString( ) ) )
             {
-	            // Second, fills the query
-	            int nIndex = 0;
-	
-	            for ( String strKey : collectionKeys )
-	            {
-	                daoUtil.setInt( ++nIndex, taskInformation.getIdHistory( ) );
-	                daoUtil.setInt( ++nIndex, taskInformation.getIdTask( ) );
-	                daoUtil.setString( ++nIndex, strKey );
-	                daoUtil.setString( ++nIndex, taskInformation.get( strKey ) );
-	            }
-	
-	            daoUtil.executeUpdate( );
+                // Second, fills the query
+                int nIndex = 0;
+
+                for ( String strKey : collectionKeys )
+                {
+                    daoUtil.setInt( ++nIndex, taskInformation.getIdHistory( ) );
+                    daoUtil.setInt( ++nIndex, taskInformation.getIdTask( ) );
+                    daoUtil.setString( ++nIndex, strKey );
+                    daoUtil.setString( ++nIndex, taskInformation.get( strKey ) );
+                }
+
+                daoUtil.executeUpdate( );
             }
         }
     }
@@ -98,29 +98,29 @@ public final class UserTaskInformationDAO implements IUserTaskInformationDAO
     @Override
     public UserTaskInformation load( int nIdHistory, int nIdTask )
     {
-    	UserTaskInformation taskInformation = null;
-    	try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT ) )
-    	{
+        UserTaskInformation taskInformation = null;
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT ) )
+        {
 
-	        int nIndex = 0;
-	        daoUtil.setInt( ++nIndex, nIdHistory );
-	        daoUtil.setInt( ++nIndex, nIdTask );
-	        daoUtil.executeQuery( );
-	
-	        // First, creates the object with one piece of information
-	        if ( daoUtil.next( ) )
-	        {
-	            taskInformation = new UserTaskInformation( daoUtil.getInt( "id_history" ), daoUtil.getInt( "id_task" ) );
-	            taskInformation.add( daoUtil.getString( "information_key" ), daoUtil.getString( "information_value" ) );
-	        }
-	
-	        // Second, adds other pieces of information
-	        while ( daoUtil.next( ) )
-	        {
-	            taskInformation.add( daoUtil.getString( "information_key" ), daoUtil.getString( "information_value" ) );
-	        }
+            int nIndex = 0;
+            daoUtil.setInt( ++nIndex, nIdHistory );
+            daoUtil.setInt( ++nIndex, nIdTask );
+            daoUtil.executeQuery( );
 
-    	}
+            // First, creates the object with one piece of information
+            if ( daoUtil.next( ) )
+            {
+                taskInformation = new UserTaskInformation( daoUtil.getInt( "id_history" ), daoUtil.getInt( "id_task" ) );
+                taskInformation.add( daoUtil.getString( "information_key" ), daoUtil.getString( "information_value" ) );
+            }
+
+            // Second, adds other pieces of information
+            while ( daoUtil.next( ) )
+            {
+                taskInformation.add( daoUtil.getString( "information_key" ), daoUtil.getString( "information_value" ) );
+            }
+
+        }
         return taskInformation;
     }
 

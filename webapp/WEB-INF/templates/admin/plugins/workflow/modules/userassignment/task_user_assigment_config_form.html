@@ -1,7 +1,7 @@
 <@row>
-	<@columns xs=12 sm=12 md=12 lg=12>
+	<@columns>
 		<@fieldSet legend='#i18n{module.workflow.userassignment.task.user.assign.config.title}'>
-			<@formGroup labelFor="providerName" labelKey="#i18n{module.workflow.userassignment.task.user.assign.config.user.choice}">
+			<@formGroup labelFor='providerName' labelKey='#i18n{module.workflow.userassignment.task.user.assign.config.user.choice}'>
 				<#if provider_list?has_content>
 					<#list provider_list as provider>
 						<#if selected_provider?? && selected_provider == provider.getName()>
@@ -9,7 +9,7 @@
 						<#else>
 							<#assign checked=false>
 						</#if>
-						<@radioButton name="providerName" value='${provider.getName()}' labelKey='#i18n{${provider.getLabelKey()}}' checked=checked />
+						<@radioButton name='providerName' value='${provider.getName()}' labelKey='#i18n{${provider.getLabelKey()}}' checked=checked />
 					</#list>
 				</#if>
 			</@formGroup>

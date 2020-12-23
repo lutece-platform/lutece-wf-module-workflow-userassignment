@@ -113,7 +113,7 @@ public final class UserTaskInformationDAO implements IUserTaskInformationDAO
             {
                 taskInformation = new UserTaskInformation( daoUtil.getInt( "id_history" ), daoUtil.getInt( "id_task" ) );
                 taskInformation.add( daoUtil.getString( "information_key" ), daoUtil.getString( "information_value" ) );
-                
+
                 // Second, adds other pieces of information
                 while ( daoUtil.next( ) )
                 {

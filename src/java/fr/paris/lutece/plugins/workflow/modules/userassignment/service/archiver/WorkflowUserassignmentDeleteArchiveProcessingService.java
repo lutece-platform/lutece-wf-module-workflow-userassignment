@@ -48,41 +48,10 @@ import fr.paris.lutece.plugins.workflowcore.service.task.ITask;
 public class WorkflowUserassignmentDeleteArchiveProcessingService extends AbstractArchiveProcessingService
 {
     public static final String BEAN_NAME = "workflow-userassignment.workflowUserassignmentDeleteArchiveProcessingService";
-    private static final String TASK_TYPE_USER_ASSIGN = "assignUserResourceTask";
-    private static final String TASK_TYPE_USER_UNASSIGN = "unassignUserResourceTask";
 
     @Override
     public void archiveResource( ResourceWorkflow resourceWorkflow )
     {
-        List<ResourceHistory> historyList = _resourceHistoryService.getAllHistoryByResource( resourceWorkflow.getIdResource( ),
-                resourceWorkflow.getResourceType( ), resourceWorkflow.getWorkflow( ).getId( ) );
-
-        archiveTaskAssignUser( historyList );
-        archiveTaskUnassignUser( historyList );
-
         ResourceUserHome.deleteByResource( resourceWorkflow.getIdResource( ), resourceWorkflow.getResourceType( ) );
-    }
-
-    private void archiveTaskUser( List<ResourceHistory> historyList, String taskType )
-    {
-        for ( ResourceHistory history : historyList )
-        {
-            List<ITask> taskList = findTasksByHistory( history, taskType );
-            for ( ITask task : taskList )
-            {
-                UserTaskInformationHome.remove( history.getIdResource( ), task.getId( ) );
-            }
-
-        }
-    }
-
-    private void archiveTaskAssignUser( List<ResourceHistory> historyList )
-    {
-        archiveTaskUser( historyList, TASK_TYPE_USER_ASSIGN );
-    }
-
-    private void archiveTaskUnassignUser( List<ResourceHistory> historyList )
-    {
-        archiveTaskUser( historyList, TASK_TYPE_USER_UNASSIGN );
     }
 }

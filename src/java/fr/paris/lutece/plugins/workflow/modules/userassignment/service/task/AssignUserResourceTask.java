@@ -96,4 +96,11 @@ public class AssignUserResourceTask extends SimpleTask
     {
         return I18nService.getLocalizedString( MESSAGE_TASK_TITLE, locale );
     }
+    
+    @Override
+    public void doRemoveTaskInformation( int nIdHistory )
+    {
+        ResourceHistory history = _resourceHistoryService.findByPrimaryKey( nIdHistory );
+        UserTaskInformationHome.remove( history.getIdResource( ), getId( ) );
+    }
 }

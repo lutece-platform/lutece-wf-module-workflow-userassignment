@@ -51,6 +51,10 @@ public class WorkflowUserassignmentResourceArchiver implements IResourceArchiver
     @Inject
     @Named( WorkflowUserassignmentDeleteArchiveProcessingService.BEAN_NAME )
     private IArchiveProcessingService _deleteArchiveProcessingService;
+    
+    @Inject
+    @Named( WorkflowUserassignmentAnonymizeArchiveProcessingService.BEAN_NAME )
+    private IArchiveProcessingService _anonymizeArchiveProcessingService;
 
     @Override
     public void archiveResource( ArchivalType archivalType, ResourceWorkflow resourceWorkflow )
@@ -58,6 +62,9 @@ public class WorkflowUserassignmentResourceArchiver implements IResourceArchiver
         switch( archivalType )
         {
             case DELETE:
+                _deleteArchiveProcessingService.archiveResource( resourceWorkflow );
+                break;
+            case ANONYMIZE:
                 _deleteArchiveProcessingService.archiveResource( resourceWorkflow );
                 break;
             default:

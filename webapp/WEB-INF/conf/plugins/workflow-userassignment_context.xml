@@ -83,5 +83,7 @@
         class="fr.paris.lutece.plugins.workflow.modules.userassignment.service.archiver.WorkflowUserassignmentResourceArchiver" />
     <bean id="workflow-userassignment.workflowUserassignmentDeleteArchiveProcessingService"
         class="fr.paris.lutece.plugins.workflow.modules.userassignment.service.archiver.WorkflowUserassignmentDeleteArchiveProcessingService" />
+    <bean id="workflow-userassignment.workflowUserassignmentAnonymizeArchiveProcessingService"
+        class="fr.paris.lutece.plugins.workflow.modules.userassignment.service.archiver.WorkflowUserassignmentAnonymizeArchiveProcessingService" />
 </beans>
 

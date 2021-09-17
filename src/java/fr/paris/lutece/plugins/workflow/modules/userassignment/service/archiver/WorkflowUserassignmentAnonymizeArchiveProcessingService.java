@@ -33,6 +33,7 @@
  */
 package fr.paris.lutece.plugins.workflow.modules.userassignment.service.archiver;
 
+
 import fr.paris.lutece.plugins.userassignment.business.ResourceUserHome;
 import fr.paris.lutece.plugins.workflow.modules.archive.service.AbstractArchiveProcessingService;
 import fr.paris.lutece.plugins.workflowcore.business.resource.ResourceWorkflow;
@@ -40,9 +41,9 @@ import fr.paris.lutece.plugins.workflowcore.business.resource.ResourceWorkflow;
 /**
  * Service for archival of type delete of plugin-workflow.
  */
-public class WorkflowUserassignmentDeleteArchiveProcessingService extends AbstractArchiveProcessingService
+public class WorkflowUserassignmentAnonymizeArchiveProcessingService extends AbstractArchiveProcessingService
 {
-    public static final String BEAN_NAME = "workflow-userassignment.workflowUserassignmentDeleteArchiveProcessingService";
+    public static final String BEAN_NAME = "workflow-userassignment.workflowUserassignmentAnonymizeArchiveProcessingService";
 
     @Override
     public void archiveResource( ResourceWorkflow resourceWorkflow )

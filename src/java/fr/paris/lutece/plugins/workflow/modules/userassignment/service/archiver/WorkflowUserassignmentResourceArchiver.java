@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -51,7 +51,7 @@ public class WorkflowUserassignmentResourceArchiver implements IResourceArchiver
     @Inject
     @Named( WorkflowUserassignmentDeleteArchiveProcessingService.BEAN_NAME )
     private IArchiveProcessingService _deleteArchiveProcessingService;
-    
+
     @Inject
     @Named( WorkflowUserassignmentAnonymizeArchiveProcessingService.BEAN_NAME )
     private IArchiveProcessingService _anonymizeArchiveProcessingService;

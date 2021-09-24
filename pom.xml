@@ -10,7 +10,7 @@
     <groupId>fr.paris.lutece.plugins</groupId>
     <artifactId>module-workflow-userassignment</artifactId>
     <packaging>lutece-plugin</packaging>
-    <version>2.0.1-SNAPSHOT</version>
+    <version>2.0.1</version>
     <name>Lutece workflow userassignment module</name>
 
     <repositories>
@@ -52,6 +52,6 @@
         <connection>scm:git:https://github.com/lutece-platform/lutece-wf-module-workflow-userassignment.git</connection>
         <developerConnection>scm:git:https://github.com/lutece-platform/lutece-wf-module-workflow-userassignment.git</developerConnection>
         <url>https://github.com/lutece-platform/lutece-wf-module-workflow-userassignment.git</url>
-        <tag>HEAD</tag>
+        <tag>module-workflow-userassignment-2.0.1</tag>
     </scm>
 </project>

@@ -100,12 +100,6 @@ public class AssignUserResourceTaskComponent extends TaskComponent
     }
 
     @Override
-    public String getTaskInformationXml( int nIdHistory, HttpServletRequest request, Locale locale, ITask task )
-    {
-        return null;
-    }
-
-    @Override
     public String validateConfig( ITaskConfig config, HttpServletRequest request )
     {
         return null;

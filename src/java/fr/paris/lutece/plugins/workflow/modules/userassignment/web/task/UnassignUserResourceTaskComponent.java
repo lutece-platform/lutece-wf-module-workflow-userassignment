@@ -77,12 +77,6 @@ public class UnassignUserResourceTaskComponent extends NoConfigTaskComponent
     }
 
     @Override
-    public String getTaskInformationXml( int nIdHistory, HttpServletRequest request, Locale locale, ITask task )
-    {
-        return null;
-    }
-
-    @Override
     public String doValidateTask( int nIdResource, String strResourceType, HttpServletRequest request, Locale locale, ITask task )
     {
         return null;

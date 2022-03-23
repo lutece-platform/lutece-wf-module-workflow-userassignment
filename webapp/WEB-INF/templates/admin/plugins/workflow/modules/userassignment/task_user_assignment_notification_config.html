@@ -1,0 +1,21 @@
+<fieldset>
+	<legend>#i18n{module.workflow.userassignment.task_user_assignment_notification.config.title}</legend>
+	<@formGroup labelKey='#i18n{module.workflow.userassignment.task_user_assignment_notification.config.labelSubject}' helpKey='#i18n{module.workflow.userassignment.task_user_assignment_notification.config.labelSubjectHelp}'>
+		<@input type='text' name='subject' value='${(config.subject)!}' mandatory=mandatory></@input>
+	</@formGroup>
+	<@formGroup labelKey='#i18n{module.workflow.userassignment.task_user_assignment_notification.config.labelSenderName}' helpKey='#i18n{module.workflow.userassignment.task_user_assignment_notification.config.labelSenderNameHelp}' max=255>
+		<@input type='text' name='senderName' value='${(config.senderName)!}' mandatory=mandatory></@input>
+	</@formGroup>
+	<@formGroup labelKey='#i18n{module.workflow.userassignment.task_user_assignment_notification.config.labelSenderEmail}' helpKey='#i18n{module.workflow.userassignment.task_user_assignment_notification.config.labelSenderEmailHelp}' max=255>
+		<@input type='text' name='senderEmail' value='${(config.senderEmail)!}' mandatory=mandatory></@input>
+	</@formGroup>
+	<@formGroup labelKey='#i18n{module.workflow.userassignment.task_user_assignment_notification.config.labelRecipientsCc}' helpKey='#i18n{module.workflow.userassignment.task_user_assignment_notification.config.labelRecipientsCcHelp}'>
+		<@input type='text' name='recipientsCc' value='${(config.recipientsCc)!}'></@input>
+	</@formGroup>
+	<@formGroup labelKey='#i18n{module.workflow.userassignment.task_user_assignment_notification.config.labelRecipientsBcc}' helpKey='#i18n{module.workflow.userassignment.task_user_assignment_notification.config.labelRecipientsBccHelp}'>
+		<@input type='text' name='recipientsBcc' value='${(config.recipientsBcc)!}'></@input>
+	</@formGroup>
+	<@formGroup labelKey='#i18n{module.workflow.userassignment.task_user_assignment_notification.config.labelMessage}' helpKey='#i18n{module.workflow.userassignment.task_user_assignment_notification.config.labelMessageHelp}'>
+		<@input type='textarea' name='message' value='${(config.message)!}' rows=6 cols=100 richtext=true mandatory=mandatory >${(config.message)!}</@input>
+	</@formGroup>
+</fieldset>

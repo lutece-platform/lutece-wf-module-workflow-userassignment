@@ -14,6 +14,10 @@
         class="fr.paris.lutece.plugins.workflowcore.service.config.TaskConfigService"
         p:taskConfigDAO-ref="workflow-userassignment.assignUserResourceTaskConfigDao" />
 
+    <bean id="workflow-userassignment.taskUserAssignmentNotificationConfigService"
+        class="fr.paris.lutece.plugins.workflowcore.service.config.TaskConfigService"
+        p:taskConfigDAO-ref="workflow-userassignment.taskUserAssignmentNotificationConfigDAO" />
+        
     <!-- Dao -->
     <bean
         id="workflow-userassignment.assignUserResourceTaskConfigDao"
@@ -21,6 +25,9 @@
     <bean id="workflow-userassignment.userTaskInformationDAO"
         class="fr.paris.lutece.plugins.workflow.modules.userassignment.business.information.UserTaskInformationDAO" />
 
+    <bean id="workflow-userassignment.taskUserAssignmentNotificationConfigDAO"
+        class="fr.paris.lutece.plugins.workflow.modules.userassignment.business.TaskUserAssignmentNotificationConfigDAO" />
+        
     <!-- AdminUserListProvide -->
     <bean
         id="workflow-userassignment.selfAssignAdminUserListProvider"
@@ -85,5 +92,28 @@
         class="fr.paris.lutece.plugins.workflow.modules.userassignment.service.archiver.WorkflowUserassignmentDeleteArchiveProcessingService" />
     <bean id="workflow-userassignment.workflowUserassignmentAnonymizeArchiveProcessingService"
         class="fr.paris.lutece.plugins.workflow.modules.userassignment.service.archiver.WorkflowUserassignmentAnonymizeArchiveProcessingService" />
+        
+    <!-- Task Unit Assignment notification -->
+    <bean id="workflow-userassignment.taskUserAssignmentNotification"
+        class="fr.paris.lutece.plugins.workflow.modules.userassignment.service.task.TaskUserAssignmentNotification"
+        scope="prototype" />
+        
+    <bean id="workflow-userassignment.taskTypeUserAssignmentNotification"
+        class="fr.paris.lutece.plugins.workflowcore.business.task.TaskType"
+        p:key="taskUserAssignmentNotification"
+        p:titleI18nKey="module.workflow.userassignment.task_user_assignment_notification.title"
+        p:beanName="workflow-userassignment.taskUserAssignmentNotification"
+        p:configBeanName="workflow-userassignment.taskUserAssignmentNotificationConfig"
+        p:taskForAutomaticAction="true" p:configRequired="true"
+        p:formTaskRequired="false" />
+    <bean
+        id="workflow-userassignment.userAssignmentNotificationTaskComponent"
+        class="fr.paris.lutece.plugins.workflow.modules.userassignment.web.task.UserAssignmentNotificationTaskComponent"
+        p:taskType-ref="workflow-userassignment.taskTypeUserAssignmentNotification"
+        p:taskConfigService-ref="workflow-userassignment.taskUserAssignmentNotificationConfigService" />
+
+    <bean id="workflow-userassignment.taskUserAssignmentNotificationConfig"
+        class="fr.paris.lutece.plugins.workflow.modules.userassignment.business.TaskUserAssignmentNotificationConfig"
+        scope="prototype" />
 </beans>
 

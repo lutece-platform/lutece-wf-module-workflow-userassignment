@@ -115,5 +115,20 @@
     <bean id="workflow-userassignment.taskUserAssignmentNotificationConfig"
         class="fr.paris.lutece.plugins.workflow.modules.userassignment.business.TaskUserAssignmentNotificationConfig"
         scope="prototype" />
+        
+    <!-- Task Unit Assignment notification -->
+	<bean id="workflow-userassignment.taskUnassignUserResourceAutomatic"
+		class="fr.paris.lutece.plugins.workflow.modules.userassignment.service.task.UnassignUserResourceAutomaticTask" 
+		scope="prototype"/>
+
+	<bean
+		id="workflow-userassignment.taskTypeUnassignUserResourceAutomatic"
+		class="fr.paris.lutece.plugins.workflowcore.business.task.TaskType"
+		p:key="taskUnassignUserResourceAutomatic"
+		p:titleI18nKey="module.workflow.userassignment.task_unassign_user_resource_automatic.title"
+		p:beanName="workflow-userassignment.taskUnassignUserResourceAutomatic"
+		p:taskForAutomaticAction="true" p:configRequired="false"
+        p:formTaskRequired="false" />
+        
 </beans>
 

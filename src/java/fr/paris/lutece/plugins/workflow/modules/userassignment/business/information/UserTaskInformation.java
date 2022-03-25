@@ -45,7 +45,8 @@ public class UserTaskInformation
     public static final String TASK_INFORMATION_ASSIGNED_USER_NAME = "ASSIGNED_USER_NAME";
     public static final String TASK_INFORMATION_ASSIGNED_USER_LASTNAME = "ASSIGNED_USER_LASTNAME";
     public static final String TASK_INFORMATION_UNASSIGNOR = "UNASSIGNOR";
-
+    public static final String TASK_INFORMATION_UNASSIGNOR_AUTOMATIC = "UNASSIGNOR_AUTOMATIC";
+    
     private final int _nIdHistory;
     private final int _nIdTask;
     private final Map<String, String> _items;

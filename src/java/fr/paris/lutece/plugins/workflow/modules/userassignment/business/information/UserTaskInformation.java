@@ -42,11 +42,9 @@ import java.util.Map;
  */
 public class UserTaskInformation
 {
-    public static final String TASK_INFORMATION_ASSIGNED_USER_NAME = "ASSIGNED_USER_NAME";
-    public static final String TASK_INFORMATION_ASSIGNED_USER_LASTNAME = "ASSIGNED_USER_LASTNAME";
-    public static final String TASK_INFORMATION_UNASSIGNOR = "UNASSIGNOR";
-    public static final String TASK_INFORMATION_UNASSIGNOR_AUTOMATIC = "UNASSIGNOR_AUTOMATIC";
-    
+    public static final String TASK_USER_ID = "USER_ID";
+    public static final String TASK_INFORMATION = "INFORMATION";
+   
     private final int _nIdHistory;
     private final int _nIdTask;
     private final Map<String, String> _items;

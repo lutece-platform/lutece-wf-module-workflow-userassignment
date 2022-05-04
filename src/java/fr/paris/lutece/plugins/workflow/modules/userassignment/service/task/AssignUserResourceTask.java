@@ -85,8 +85,7 @@ public class AssignUserResourceTask extends SimpleTask
     private void saveUserTaskInformation( int nIdResourceHistory, AdminUser userAssigned )
     {
         UserTaskInformation taskInformation = new UserTaskInformation( nIdResourceHistory, getId( ) );
-        taskInformation.add( UserTaskInformation.TASK_INFORMATION_ASSIGNED_USER_NAME, userAssigned.getFirstName( ) );
-        taskInformation.add( UserTaskInformation.TASK_INFORMATION_ASSIGNED_USER_LASTNAME, userAssigned.getLastName( ) );
+        taskInformation.add( UserTaskInformation.TASK_USER_ID, String.valueOf( userAssigned.getUserId( ) ) );
 
         UserTaskInformationHome.create( taskInformation );
     }

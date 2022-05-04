@@ -34,7 +34,6 @@
 package fr.paris.lutece.plugins.workflow.modules.userassignment.web.task;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -45,12 +44,16 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
 
 import fr.paris.lutece.plugins.workflow.modules.userassignment.business.TaskUserAssignmentNotificationConfig;
-import fr.paris.lutece.plugins.workflow.modules.userassignment.service.task.AssignUserResourceTask;
+import fr.paris.lutece.plugins.workflow.modules.userassignment.business.information.UserTaskInformation;
+import fr.paris.lutece.plugins.workflow.modules.userassignment.business.information.UserTaskInformationHome;
 import fr.paris.lutece.plugins.workflow.web.task.NoFormTaskComponent;
 import fr.paris.lutece.plugins.workflowcore.service.config.ITaskConfigService;
 import fr.paris.lutece.plugins.workflowcore.service.task.ITask;
 import fr.paris.lutece.plugins.workflowcore.service.task.ITaskService;
 import fr.paris.lutece.plugins.workflowcore.service.task.TaskService;
+import fr.paris.lutece.portal.business.user.AdminUser;
+import fr.paris.lutece.portal.business.user.AdminUserHome;
+import fr.paris.lutece.portal.service.i18n.I18nService;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.util.html.HtmlTemplate;
 
@@ -64,9 +67,13 @@ public class UserAssignmentNotificationTaskComponent extends NoFormTaskComponent
 
 	//TEMPLATE
 	private static final String TEMPLATE_CONFIG = "admin/plugins/workflow/modules/userassignment/task_user_assignment_notification_config.html";
-	
+
 	//MARKS
 	private static final String MARK_CONFIG = "config";
+
+	//PROPERIES
+	private static final String PROPERTY_HISTORY_INFO = "module.workflow.userassignment.task_user_assignment_notification.history.information";
+	private static final String PROPERTY_HISTORY_INFO_USER_UNKNOWN = "module.workflow.userassignment.task_user_assignment_notification.history.information.user_unknown";
 	
 	private static final String BEAN_CONFIG = "workflow-userassignment.taskUserAssignmentNotificationConfigService";
 	
@@ -94,6 +101,29 @@ public class UserAssignmentNotificationTaskComponent extends NoFormTaskComponent
 	@Override
 	public String getDisplayTaskInformation( int nIdHistory, HttpServletRequest request, Locale locale, ITask task )
 	{
-		return StringUtils.EMPTY;
+        UserTaskInformation taskInformation = UserTaskInformationHome.find( nIdHistory, task.getId( ) );
+        StringBuilder sbTaskInformation = new StringBuilder( );
+
+        if ( taskInformation != null )
+        {
+        	AdminUser user = AdminUserHome.findByPrimaryKey( Integer.parseInt( taskInformation.get( UserTaskInformation.TASK_USER_ID ) ) ) ;
+        	
+        	sbTaskInformation.append( I18nService.getLocalizedString( PROPERTY_HISTORY_INFO, locale ) );
+        	
+        	if( user != null)
+        	{
+	        	sbTaskInformation.append( user.getFirstName( ) );
+	        	sbTaskInformation.append( StringUtils.SPACE );
+	        	sbTaskInformation.append( user.getLastName( ) );
+        	}
+        	sbTaskInformation.append( StringUtils.SPACE );
+        	sbTaskInformation.append( taskInformation.get( UserTaskInformation.TASK_INFORMATION ) );
+        }
+        else
+        {
+        	sbTaskInformation.append( I18nService.getLocalizedString( PROPERTY_HISTORY_INFO_USER_UNKNOWN, locale ) );
+        }
+        
+        return sbTaskInformation.toString( );
 	}
 }

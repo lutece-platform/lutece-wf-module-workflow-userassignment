@@ -42,6 +42,8 @@ import javax.servlet.http.HttpServletRequest;
 
 
 import fr.paris.lutece.plugins.workflow.modules.userassignment.business.TaskUserAssignmentNotificationConfig;
+import fr.paris.lutece.plugins.workflow.modules.userassignment.business.information.UserTaskInformation;
+import fr.paris.lutece.plugins.workflow.modules.userassignment.business.information.UserTaskInformationHome;
 import fr.paris.lutece.plugins.workflowcore.business.resource.ResourceHistory;
 import fr.paris.lutece.plugins.workflowcore.service.config.ITaskConfigService;
 import fr.paris.lutece.plugins.workflowcore.service.resource.IResourceHistoryService;
@@ -50,6 +52,7 @@ import fr.paris.lutece.plugins.workflowcore.service.task.ITaskService;
 import fr.paris.lutece.plugins.workflowcore.service.task.SimpleTask;
 import fr.paris.lutece.plugins.workflowcore.service.task.TaskService;
 import fr.paris.lutece.portal.business.user.AdminUser;
+import fr.paris.lutece.portal.business.user.AdminUserHome;
 import fr.paris.lutece.portal.service.i18n.I18nService;
 import fr.paris.lutece.portal.service.mail.MailService;
 import fr.paris.lutece.portal.service.util.AppLogService;
@@ -66,6 +69,9 @@ public class TaskUserAssignmentNotification extends SimpleTask
     //MARKS
     private static final String MARK_RESOURCE_ID 	= "resourceId";
     private static final String MARK_RESOURCE_TYPE 	= "resourceType";
+    
+    //PARAMETERS
+    private static final String PARAMETER_USER_ID 	= "user_selection_id";
     
 	private static final String BEAN_CONFIG 		= "workflow-userassignment.taskUserAssignmentNotificationConfigService";
 	
@@ -100,6 +106,9 @@ public class TaskUserAssignmentNotification extends SimpleTask
 		ResourceHistory resourceHistory = _resourceHistoryService.findByPrimaryKey( nIdResourceHistory );		
 		TaskUserAssignmentNotificationConfig config = _taskConfigService.findByPrimaryKey( getId( ) );
 		notifyUser( resourceHistory, config );
+			
+		saveUserTaskInformation( resourceHistory.getId( ), request );
+		
 	}
 
 	
@@ -132,5 +141,19 @@ public class TaskUserAssignmentNotification extends SimpleTask
 			AppLogService.error( "User to notify not found", new Exception( ) );
 		}
 	}
+	
+    private void saveUserTaskInformation( int nIdResourceHistory, HttpServletRequest request )
+    {
+		String strUnitSelectionId = request.getParameter( PARAMETER_USER_ID );
+        AdminUser user = AdminUserHome.findByPrimaryKey( Integer.valueOf( strUnitSelectionId ) );	
+        
+        if( user != null )
+        {
+	        UserTaskInformation taskInformation = new UserTaskInformation( nIdResourceHistory, getId( ) );
+	        taskInformation.add( UserTaskInformation.TASK_USER_ID, String.valueOf( user.getUserId( ) ) );
+	        taskInformation.add( UserTaskInformation.TASK_INFORMATION, user.getEmail( ) );
+	        UserTaskInformationHome.create( taskInformation );
+        }
+    }
 
 }

@@ -85,7 +85,7 @@ public class UnassignUserResourceAutomaticTask extends SimpleTask
     private void saveUserTaskInformation( int nIdResourceHistory, AdminUser userUnassigned )
     {
         UserTaskInformation taskInformation = new UserTaskInformation( nIdResourceHistory, getId( ) );
-        taskInformation.add( UserTaskInformation.TASK_INFORMATION_UNASSIGNOR_AUTOMATIC, userUnassigned.getFirstName( ) + " " + userUnassigned.getLastName( ) );
+        taskInformation.add( UserTaskInformation.TASK_USER_ID, String.valueOf( userUnassigned.getUserId( ) ) );
 
         UserTaskInformationHome.create( taskInformation );
     }

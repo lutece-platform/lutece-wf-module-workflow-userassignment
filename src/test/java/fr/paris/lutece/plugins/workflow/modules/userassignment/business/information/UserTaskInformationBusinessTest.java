@@ -41,18 +41,14 @@ public class UserTaskInformationBusinessTest extends LuteceTestCase
     public void testCRUD( )
     {
         UserTaskInformation info = new UserTaskInformation( 1, 1 );
-        info.add( UserTaskInformation.TASK_INFORMATION_ASSIGNED_USER_NAME, "John" );
-        info.add( UserTaskInformation.TASK_INFORMATION_ASSIGNED_USER_LASTNAME, "Doe" );
+        info.add( UserTaskInformation.TASK_USER_ID, "1000" );
 
         UserTaskInformationHome.create( info );
 
         UserTaskInformation loaded = UserTaskInformationHome.find( 1, 1 );
 
-        assertEquals( info.get( UserTaskInformation.TASK_INFORMATION_ASSIGNED_USER_NAME ),
-                loaded.get( UserTaskInformation.TASK_INFORMATION_ASSIGNED_USER_NAME ) );
-        assertEquals( info.get( UserTaskInformation.TASK_INFORMATION_ASSIGNED_USER_LASTNAME ),
-                loaded.get( UserTaskInformation.TASK_INFORMATION_ASSIGNED_USER_LASTNAME ) );
-
+        assertEquals( info.get( UserTaskInformation.TASK_USER_ID ),
+                loaded.get( UserTaskInformation.TASK_USER_ID ) );
         clearTable( );
     }
 

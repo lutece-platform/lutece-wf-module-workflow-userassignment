@@ -50,6 +50,7 @@ import fr.paris.lutece.plugins.workflowcore.business.config.ITaskConfig;
 import fr.paris.lutece.plugins.workflowcore.service.task.ITask;
 import fr.paris.lutece.plugins.workflowcore.web.task.TaskComponent;
 import fr.paris.lutece.portal.business.user.AdminUser;
+import fr.paris.lutece.portal.business.user.AdminUserHome;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.util.html.HtmlTemplate;
 
@@ -69,7 +70,7 @@ public class AssignUserResourceTaskComponent extends TaskComponent
     private static final String MARK_USER_LIST = "list_user_selection";
     private static final String MARK_PROVIDER_LIST = "provider_list";
     private static final String MARK_SELECTED_PROVIDER = "selected_provider";
-    private static final String MARK_TASK_INFORMATION = "taskInformation";
+    private static final String MARK_USER = "user";
 
     // Services
     private final IAssignUserResourceTaskService _assignUserResourceTaskService;
@@ -90,7 +91,7 @@ public class AssignUserResourceTaskComponent extends TaskComponent
         if ( taskInformation != null )
         {
             Map<String, Object> model = new HashMap<>( );
-            model.put( MARK_TASK_INFORMATION, taskInformation );
+            model.put( MARK_USER, AdminUserHome.findByPrimaryKey( Integer.parseInt( taskInformation.get( UserTaskInformation.TASK_USER_ID ) ) ) );
 
             HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_TASK_INFORMATION, locale, model );
 

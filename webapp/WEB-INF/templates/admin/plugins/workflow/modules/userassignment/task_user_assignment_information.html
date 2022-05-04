@@ -1,1 +1,1 @@
-<strong>#i18n{module.workflow.userassignment.task.user.assign.information.description}</strong> <@icon style='arrow-right' /> <b>${taskInformation.get( "ASSIGNED_USER_LASTNAME" )!''} ${taskInformation.get( "ASSIGNED_USER_NAME" )!''} </b>
+<strong>#i18n{module.workflow.userassignment.task.user.assign.information.description}</strong> <@icon style='arrow-right' /> <b><#if user??>${user.lastName!''} ${user.firstName!''}<#else>#i18n{module.workflow.userassignment.task_user_assignment_notification.history.information.user_unknown}</#if></b>

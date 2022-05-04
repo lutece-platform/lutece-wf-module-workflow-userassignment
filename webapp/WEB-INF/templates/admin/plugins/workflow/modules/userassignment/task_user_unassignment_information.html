@@ -1,1 +1,1 @@
-<strong>#i18n{module.workflow.userassignment.task.user.unassign.information.description}</strong> : ${taskInformation.get( "UNASSIGNOR" )!''}
+<strong>#i18n{module.workflow.userassignment.task.user.unassign.information.description}</strong> : <#if user??>${user.lastName!''} ${user.firstName!''}<#else>#i18n{module.workflow.userassignment.task_user_assignment_notification.history.information.user_unknown}</#if>

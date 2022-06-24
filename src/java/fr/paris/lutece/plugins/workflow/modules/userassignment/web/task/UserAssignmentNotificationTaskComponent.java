@@ -123,10 +123,6 @@ public class UserAssignmentNotificationTaskComponent extends NoFormTaskComponent
         	sbTaskInformation.append( StringUtils.SPACE );
         	sbTaskInformation.append( taskInformation.get( UserTaskInformation.TASK_INFORMATION ) );
         }
-        else
-        {
-        	sbTaskInformation.append( I18nService.getLocalizedString( PROPERTY_HISTORY_INFO_USER_UNKNOWN, locale ) );
-        }
         
         return sbTaskInformation.toString( );
 	}

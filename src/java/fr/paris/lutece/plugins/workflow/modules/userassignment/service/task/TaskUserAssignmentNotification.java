@@ -33,8 +33,10 @@
  */
 package fr.paris.lutece.plugins.workflow.modules.userassignment.service.task;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -55,7 +57,9 @@ import fr.paris.lutece.portal.business.user.AdminUser;
 import fr.paris.lutece.portal.business.user.AdminUserHome;
 import fr.paris.lutece.portal.service.i18n.I18nService;
 import fr.paris.lutece.portal.service.mail.MailService;
+import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.portal.service.util.AppLogService;
+import fr.paris.lutece.util.html.HtmlTemplate;
 
 /**
  * TaskUserAssignmentNotification
@@ -67,8 +71,7 @@ public class TaskUserAssignmentNotification extends SimpleTask
     private static final String MESSAGE_TASK_TITLE 	= "module.workflow.userassignment.task_user_assignment_notification.title";
 
     //MARKS
-    private static final String MARK_RESOURCE_ID 	= "resourceId";
-    private static final String MARK_RESOURCE_TYPE 	= "resourceType";
+    private static final String MARK_AGENT_NAME = "agent_name";
     
     //PARAMETERS
     private static final String PARAMETER_USER_ID 	= "user_selection_id";
@@ -122,18 +125,17 @@ public class TaskUserAssignmentNotification extends SimpleTask
 	 */
 	private void notifyUser( ResourceHistory resourceHistory, TaskUserAssignmentNotificationConfig config )
 	{	
+		Map<String, Object> model = getAvailableMarkersValues( resourceHistory );
 		List<AdminUser> listNotifyUser =  _userResourceService.listActiveUserByResource( resourceHistory.getIdResource( ), resourceHistory.getResourceType( ) );
 		
 		if ( !listNotifyUser.isEmpty( ) )
 		{
 			for( AdminUser adminUser :  _userResourceService.listActiveUserByResource( resourceHistory.getIdResource( ), resourceHistory.getResourceType( ) ) )
 			{	
-				String strMessage =  config.getMessage( );
-				strMessage = strMessage.replace( MARK_RESOURCE_ID, String.valueOf( resourceHistory.getIdResource( ) ) );
-				strMessage = strMessage.replace( MARK_RESOURCE_TYPE, String.valueOf( resourceHistory.getResourceType( ) ) );
+				HtmlTemplate html = AppTemplateService.getTemplateFromStringFtl( config.getMessage( ), null, model );
 				
 				MailService.sendMailHtml( adminUser.getEmail( ), config.getRecipientsCc( ), config.getRecipientsBcc( ), config.getSenderName( ),
-						config.getSenderEmail( ), config.getSubject( ), strMessage);
+						config.getSenderEmail( ), config.getSubject( ), html.getHtml());
 			}
 		}
 		else 			
@@ -156,4 +158,15 @@ public class TaskUserAssignmentNotification extends SimpleTask
         }
     }
 
+	private Map<String, Object> getAvailableMarkersValues( ResourceHistory resourceHistory )
+    {
+        Map<String, Object> model = new HashMap<>( );
+        
+        UserTaskInformation taskInformation = UserTaskInformationHome.find( resourceHistory.getIdResource( ), getId() );
+        AdminUser user = AdminUserHome.findByPrimaryKey( Integer.parseInt( taskInformation.get( UserTaskInformation.TASK_USER_ID ) ) ) ;
+        
+        model.put( MARK_AGENT_NAME, user.getFirstName( ) );
+
+        return model;
+    }
 }

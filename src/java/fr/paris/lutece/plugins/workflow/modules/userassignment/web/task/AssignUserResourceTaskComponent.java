@@ -91,7 +91,10 @@ public class AssignUserResourceTaskComponent extends TaskComponent
         if ( taskInformation != null )
         {
             Map<String, Object> model = new HashMap<>( );
-            model.put( MARK_USER, AdminUserHome.findByPrimaryKey( Integer.parseInt( taskInformation.get( UserTaskInformation.TASK_USER_ID ) ) ) );
+            if ( taskInformation.get( UserTaskInformation.TASK_USER_ID ) != null )
+            {
+            	model.put( MARK_USER, AdminUserHome.findByPrimaryKey( Integer.parseInt( taskInformation.get( UserTaskInformation.TASK_USER_ID ) ) ) );
+            }
 
             HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_TASK_INFORMATION, locale, model );
 

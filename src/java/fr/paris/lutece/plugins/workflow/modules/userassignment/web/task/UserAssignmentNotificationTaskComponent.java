@@ -55,6 +55,7 @@ import fr.paris.lutece.portal.business.user.AdminUser;
 import fr.paris.lutece.portal.business.user.AdminUserHome;
 import fr.paris.lutece.portal.service.i18n.I18nService;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
+import fr.paris.lutece.util.ReferenceList;
 import fr.paris.lutece.util.html.HtmlTemplate;
 
 /**
@@ -70,10 +71,13 @@ public class UserAssignmentNotificationTaskComponent extends NoFormTaskComponent
 
 	//MARKS
 	private static final String MARK_CONFIG = "config";
+    private static final String MARK_EMAIL_MARKERS = "email_markers";
 
 	//PROPERIES
 	private static final String PROPERTY_HISTORY_INFO = "module.workflow.userassignment.task_user_assignment_notification.history.information";
 	private static final String PROPERTY_HISTORY_INFO_USER_UNKNOWN = "module.workflow.userassignment.task_user_assignment_notification.history.information.user_unknown";
+    private static final String PROPERTY_AGENT_NAME = "module.workflow.userassignment.markers.agent_name";
+
 	
 	private static final String BEAN_CONFIG = "workflow-userassignment.taskUserAssignmentNotificationConfigService";
 	
@@ -93,6 +97,7 @@ public class UserAssignmentNotificationTaskComponent extends NoFormTaskComponent
 		TaskUserAssignmentNotificationConfig config = _taskConfigService.findByPrimaryKey( task.getId( ) );
 
 		model.put ( MARK_CONFIG, config );
+        model.put( MARK_EMAIL_MARKERS, getAvailableMarkers( locale ) );
 		HtmlTemplate html = AppTemplateService.getTemplate( TEMPLATE_CONFIG, locale, model );
 		
 		return html.getHtml( );
@@ -126,4 +131,13 @@ public class UserAssignmentNotificationTaskComponent extends NoFormTaskComponent
         
         return sbTaskInformation.toString( );
 	}
+	
+	private ReferenceList getAvailableMarkers( Locale locale )
+    {
+    	ReferenceList referenceList = new ReferenceList( );
+		
+		referenceList.addItem( "agent_name", I18nService.getLocalizedString( PROPERTY_AGENT_NAME, locale ) );
+		
+		return referenceList;
+    }
 }

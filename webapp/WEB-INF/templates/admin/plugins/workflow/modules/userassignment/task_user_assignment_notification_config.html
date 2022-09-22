@@ -14,7 +14,7 @@
 <@formGroup labelKey='#i18n{module.workflow.userassignment.task_user_assignment_notification.config.labelRecipientsBcc}' helpKey='#i18n{module.workflow.userassignment.task_user_assignment_notification.config.labelRecipientsBccHelp}'>
 	<@input type='text' name='recipientsBcc' value='${(config.recipientsBcc)!}'></@input>
 </@formGroup>
-<@formGroup labelKey='#i18n{module.workflow.userassignment.task_user_assignment_notification.config.labelMessage}' helpKey='#i18n{module.workflow.userassignment.task_user_assignment_notification.config.labelMessageHelp}'>
+<@formGroup labelKey='#i18n{module.workflow.userassignment.task_user_assignment_notification.config.labelMessage}'>
 	<@input type='textarea' name='message' value='${(config.message)!}' rows=6 cols=100 richtext=true mandatory=mandatory >${(config.message)!}</@input>
 </@formGroup>
 <@div class='col-sm-6'>

@@ -54,7 +54,6 @@ import fr.paris.lutece.plugins.workflowcore.service.task.ITaskService;
 import fr.paris.lutece.plugins.workflowcore.service.task.SimpleTask;
 import fr.paris.lutece.plugins.workflowcore.service.task.TaskService;
 import fr.paris.lutece.portal.business.user.AdminUser;
-import fr.paris.lutece.portal.business.user.AdminUserHome;
 import fr.paris.lutece.portal.service.i18n.I18nService;
 import fr.paris.lutece.portal.service.mail.MailService;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
@@ -72,9 +71,8 @@ public class TaskUserAssignmentNotification extends SimpleTask
 
     //MARKS
     private static final String MARK_AGENT_NAME = "agent_name";
-    
-    //PARAMETERS
-    private static final String PARAMETER_USER_ID 	= "user_selection_id";
+    private static final String MARK_RESOURCE_ID   = "resourceId";
+    private static final String MARK_RESOURCE_TYPE = "resourceType";
     
 	private static final String BEAN_CONFIG 		= "workflow-userassignment.taskUserAssignmentNotificationConfigService";
 	
@@ -108,10 +106,7 @@ public class TaskUserAssignmentNotification extends SimpleTask
 	{
 		ResourceHistory resourceHistory = _resourceHistoryService.findByPrimaryKey( nIdResourceHistory );		
 		TaskUserAssignmentNotificationConfig config = _taskConfigService.findByPrimaryKey( getId( ) );
-		notifyUser( resourceHistory, config );
-			
-		saveUserTaskInformation( resourceHistory.getId( ), request );
-		
+		notifyUser( resourceHistory, config );		
 	}
 
 	
@@ -125,17 +120,21 @@ public class TaskUserAssignmentNotification extends SimpleTask
 	 */
 	private void notifyUser( ResourceHistory resourceHistory, TaskUserAssignmentNotificationConfig config )
 	{	
-		Map<String, Object> model = getAvailableMarkersValues( resourceHistory );
 		List<AdminUser> listNotifyUser =  _userResourceService.listActiveUserByResource( resourceHistory.getIdResource( ), resourceHistory.getResourceType( ) );
 		
 		if ( !listNotifyUser.isEmpty( ) )
 		{
-			for( AdminUser adminUser :  _userResourceService.listActiveUserByResource( resourceHistory.getIdResource( ), resourceHistory.getResourceType( ) ) )
+			for( AdminUser adminUser :  listNotifyUser )
 			{	
+			    Map<String, Object> model = getAvailableMarkersValues( resourceHistory, adminUser );
 				HtmlTemplate html = AppTemplateService.getTemplateFromStringFtl( config.getMessage( ), null, model );
 				
+				//Send notification
 				MailService.sendMailHtml( adminUser.getEmail( ), config.getRecipientsCc( ), config.getRecipientsBcc( ), config.getSenderName( ),
 						config.getSenderEmail( ), config.getSubject( ), html.getHtml());
+				
+				//Save information task
+				saveUserTaskInformation( resourceHistory.getId( ), adminUser );
 			}
 		}
 		else 			
@@ -144,29 +143,25 @@ public class TaskUserAssignmentNotification extends SimpleTask
 		}
 	}
 	
-    private void saveUserTaskInformation( int nIdResourceHistory, HttpServletRequest request )
+    private void saveUserTaskInformation( int nIdResourceHistory, AdminUser userNotified )
     {
-		String strUnitSelectionId = request.getParameter( PARAMETER_USER_ID );
-        AdminUser user = AdminUserHome.findByPrimaryKey( Integer.valueOf( strUnitSelectionId ) );	
-        
-        if( user != null )
+        if ( userNotified != null )
         {
-	        UserTaskInformation taskInformation = new UserTaskInformation( nIdResourceHistory, getId( ) );
-	        taskInformation.add( UserTaskInformation.TASK_USER_ID, String.valueOf( user.getUserId( ) ) );
-	        taskInformation.add( UserTaskInformation.TASK_INFORMATION, user.getEmail( ) );
-	        UserTaskInformationHome.create( taskInformation );
+            UserTaskInformation taskInformation = new UserTaskInformation( nIdResourceHistory, getId( ) );
+            taskInformation.add( UserTaskInformation.TASK_USER_ID, String.valueOf( userNotified.getUserId( ) ) );
+            taskInformation.add( UserTaskInformation.TASK_INFORMATION, userNotified.getEmail( ) );
+            UserTaskInformationHome.create( taskInformation );
         }
     }
 
-	private Map<String, Object> getAvailableMarkersValues( ResourceHistory resourceHistory )
+	private Map<String, Object> getAvailableMarkersValues( ResourceHistory resourceHistory, AdminUser user )
     {
         Map<String, Object> model = new HashMap<>( );
-        
-        UserTaskInformation taskInformation = UserTaskInformationHome.find( resourceHistory.getIdResource( ), getId() );
-        AdminUser user = AdminUserHome.findByPrimaryKey( Integer.parseInt( taskInformation.get( UserTaskInformation.TASK_USER_ID ) ) ) ;
-        
-        model.put( MARK_AGENT_NAME, user.getFirstName( ) );
 
+        model.put( MARK_AGENT_NAME, user.getFirstName( ) );
+        model.put( MARK_RESOURCE_ID, String.valueOf( resourceHistory.getIdResource( ) ) );
+        model.put( MARK_RESOURCE_TYPE, String.valueOf( resourceHistory.getResourceType( ) ) );
+        
         return model;
     }
 }

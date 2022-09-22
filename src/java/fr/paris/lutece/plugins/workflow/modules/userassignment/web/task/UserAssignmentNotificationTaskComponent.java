@@ -77,6 +77,8 @@ public class UserAssignmentNotificationTaskComponent extends NoFormTaskComponent
 	private static final String PROPERTY_HISTORY_INFO = "module.workflow.userassignment.task_user_assignment_notification.history.information";
 	private static final String PROPERTY_HISTORY_INFO_USER_UNKNOWN = "module.workflow.userassignment.task_user_assignment_notification.history.information.user_unknown";
     private static final String PROPERTY_AGENT_NAME = "module.workflow.userassignment.markers.agent_name";
+    private static final String PROPERTY_RESOURCE_ID = "module.workflow.userassignment.markers.resource_id";
+    private static final String PROPERTY_RESOURCE_TYPE = "module.workflow.userassignment.markers.resource_type";
 
 	
 	private static final String BEAN_CONFIG = "workflow-userassignment.taskUserAssignmentNotificationConfigService";
@@ -137,6 +139,8 @@ public class UserAssignmentNotificationTaskComponent extends NoFormTaskComponent
     	ReferenceList referenceList = new ReferenceList( );
 		
 		referenceList.addItem( "agent_name", I18nService.getLocalizedString( PROPERTY_AGENT_NAME, locale ) );
+		referenceList.addItem( "resourceId", I18nService.getLocalizedString( PROPERTY_RESOURCE_ID, locale ) );
+		referenceList.addItem( "resourceType", I18nService.getLocalizedString( PROPERTY_RESOURCE_TYPE, locale ) );
 		
 		return referenceList;
     }

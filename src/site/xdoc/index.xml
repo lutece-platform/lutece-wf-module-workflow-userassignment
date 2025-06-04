@@ -5,19 +5,31 @@
     </properties>
     <body>
         <section name="Plugin userassignment">
-            <!--
-            <p>
-                <img src="images/userassignment.png" />
-            </p>
-            -->
+
             <subsection name="Introduction">
-                <p></p>
+                <p>
+                    This module contains workflow tasks for the plugin <strong>plugin-userassignment</strong>.
+                </p>
             </subsection>
-            <subsection name="Configuration">
-                <p></p>
-            </subsection>
-            <subsection name="Usage">
-                <p></p>
+            <subsection name="Task Type ">
+                <p>
+                    <strong>(Userassignment) Assign a notification </strong>
+                </p>
+                <p>
+                    <strong>(Userassignment) Assign a response </strong>
+                    : It is possible to configure this task to assign a response to the current user or to an entity of choice.
+                </p>
+                <p>
+                    <strong>(Userassignment) Assign a response to the current user </strong>
+                    : Assign a response to the current user directly without intermediate screens.
+                </p>
+
+                <p>
+                    <strong>(Userassignment) Unassign a response </strong>
+                </p>
+                <p>
+                    <strong> (Userassignment) Unassign a response automatically </strong>
+                </p>
             </subsection>
         </section>
     </body>

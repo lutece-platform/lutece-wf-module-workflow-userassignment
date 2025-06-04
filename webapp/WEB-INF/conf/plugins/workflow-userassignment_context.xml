@@ -58,6 +58,26 @@
         p:taskConfigService-ref="workflow-userassignment.assignUserResourceTaskConfigService"
         scope="prototype" />
 
+    <!-- Task Assign record to current user -->
+    <bean id="workflow-userassignment.assignToCurrentUserResourceTask"
+          class="fr.paris.lutece.plugins.workflow.modules.userassignment.service.task.AssignCurrentUserResourceTask"
+          scope="prototype" />
+
+    <bean id="workflow-userassignment.assignToCurrentUserResourceTypeTask"
+          class="fr.paris.lutece.plugins.workflowcore.business.task.TaskType"
+          p:key="assignCurrentUserResourceTask"
+          p:titleI18nKey="module.workflow.userassignment.task.currentuser.assign.title"
+          p:beanName="workflow-userassignment.assignToCurrentUserResourceTask"
+          p:taskForAutomaticAction="false" p:configRequired="false"
+          p:formTaskRequired="false" />
+
+    <bean
+        id="workflow-userassignment.assignCurrentUserResourceTaskComponent"
+        class="fr.paris.lutece.plugins.workflow.modules.userassignment.web.task.AssignCurrentUserResourceTaskComponent"
+        p:taskType-ref="workflow-userassignment.assignToCurrentUserResourceTypeTask"
+        p:taskConfigService-ref="workflow-userassignment.assignUserResourceTaskConfigService"
+        scope="prototype" />
+
     <!-- Unassign Task -->
     <bean id="workflow-userassignment.unassignUserResourceTask"
         class="fr.paris.lutece.plugins.workflow.modules.userassignment.service.task.UnassignUserResourceTask"

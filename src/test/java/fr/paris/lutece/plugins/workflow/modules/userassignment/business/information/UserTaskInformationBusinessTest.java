@@ -33,11 +33,14 @@
  */
 package fr.paris.lutece.plugins.workflow.modules.userassignment.business.information;
 
+import org.junit.jupiter.api.Test;
+
 import fr.paris.lutece.test.LuteceTestCase;
 import fr.paris.lutece.util.sql.DAOUtil;
 
 public class UserTaskInformationBusinessTest extends LuteceTestCase
 {
+	@Test
     public void testCRUD( )
     {
         UserTaskInformation info = new UserTaskInformation( 1, 1 );

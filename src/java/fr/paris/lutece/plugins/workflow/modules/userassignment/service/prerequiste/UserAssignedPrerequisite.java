@@ -35,7 +35,9 @@ package fr.paris.lutece.plugins.workflow.modules.userassignment.service.prerequi
 
 import fr.paris.lutece.plugins.workflow.modules.userassignment.service.task.AbstractUserAssignedPrerequisite;
 import fr.paris.lutece.plugins.workflowcore.business.prerequisite.IPrerequisiteConfig;
+import jakarta.enterprise.context.ApplicationScoped;
 
+@ApplicationScoped
 public class UserAssignedPrerequisite extends AbstractUserAssignedPrerequisite
 {
 

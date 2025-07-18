@@ -36,7 +36,8 @@ package fr.paris.lutece.plugins.workflow.modules.userassignment.business;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.servlet.http.HttpServletRequest;
 
 import fr.paris.lutece.portal.business.user.AdminUser;
 import fr.paris.lutece.portal.service.admin.AdminUserService;
@@ -44,6 +45,7 @@ import fr.paris.lutece.portal.service.admin.AdminUserService;
 /**
  * An implementation of {@link IAdminUserListProvider} which returns a list containing only the current user.
  */
+@ApplicationScoped
 public class SelfAssignAdminUserListProvider implements IAdminUserListProvider
 {
 

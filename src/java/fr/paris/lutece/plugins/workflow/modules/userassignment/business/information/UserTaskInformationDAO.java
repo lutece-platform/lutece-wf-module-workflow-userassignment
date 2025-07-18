@@ -34,6 +34,7 @@
 package fr.paris.lutece.plugins.workflow.modules.userassignment.business.information;
 
 import fr.paris.lutece.util.sql.DAOUtil;
+import jakarta.enterprise.context.ApplicationScoped;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -41,6 +42,7 @@ import java.util.Iterator;
 /**
  * This class provides Data Access methods for {@link UserTaskInformation} objects
  */
+@ApplicationScoped
 public final class UserTaskInformationDAO implements IUserTaskInformationDAO
 {
     // Constants

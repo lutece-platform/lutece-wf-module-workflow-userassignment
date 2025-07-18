@@ -31,45 +31,39 @@
  *
  * License 1.0
  */
-package fr.paris.lutece.plugins.workflow.modules.userassignment.web.task;
+package fr.paris.lutece.plugins.workflow.modules.userassignment.service.task;
 
-import fr.paris.lutece.plugins.workflow.modules.userassignment.service.task.AssignUserResourceTask;
-import fr.paris.lutece.plugins.workflow.modules.userassignment.service.task.IAssignUserResourceTaskService;
-import fr.paris.lutece.plugins.workflowcore.business.task.ITaskType;
+import fr.paris.lutece.plugins.workflow.modules.userassignment.business.AssignUserResourceTaskConfig;
+import fr.paris.lutece.plugins.workflow.modules.userassignment.business.TaskUserAssignmentNotificationConfig;
+import fr.paris.lutece.plugins.workflowcore.business.config.ITaskConfigDAO;
 import fr.paris.lutece.plugins.workflowcore.service.config.ITaskConfigService;
-import fr.paris.lutece.plugins.workflowcore.service.task.ITask;
-import jakarta.enterprise.context.Dependent;
-import jakarta.inject.Inject;
+import fr.paris.lutece.plugins.workflowcore.service.config.TaskConfigService;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Named;
-import jakarta.servlet.http.HttpServletRequest;
-import java.util.Locale;
 
-/**
- * This class represents a component for the task {@link AssignUserResourceTask}
- *
- */
-@Dependent
-public class AssignCurrentUserResourceTaskComponent extends AssignUserResourceTaskComponent
+@ApplicationScoped
+public class TaskConfigServiceProducer
 {
-
-	@Inject
-    public AssignCurrentUserResourceTaskComponent(IAssignUserResourceTaskService assignUserFormResponseTaskService, 
-    		@Named( "workflow-userassignment.assignToCurrentUserResourceTypeTask" ) ITaskType taskType,
-            @Named( "workflow-userassignment.assignUserResourceTaskConfigService" ) ITaskConfigService taskConfigService) 
+	@Produces
+    @ApplicationScoped
+    @Named( "workflow-userassignment.assignUserResourceTaskConfigService" )
+    public ITaskConfigService produceAssignUserResourceTaskConfigService(
+            @Named( "workflow-userassignment.assignUserResourceTaskConfigDao" ) ITaskConfigDAO<AssignUserResourceTaskConfig> assignUserResourceTaskConfigDao )
     {
-        super( assignUserFormResponseTaskService, taskType, taskConfigService );
+        TaskConfigService taskService = new TaskConfigService( );
+        taskService.setTaskConfigDAO( (ITaskConfigDAO) assignUserResourceTaskConfigDao );
+        return taskService;
     }
-
-    @Override
-    public String getDisplayTaskForm( int nIdResource, String strResourceType, HttpServletRequest request, Locale locale, ITask task )
+	
+	@Produces
+    @ApplicationScoped
+    @Named( "workflow-userassignment.taskUserAssignmentNotificationConfigService" )
+    public ITaskConfigService produceTaskUserAssignmentNotificationConfigService(
+            @Named( "workflow-userassignment.taskUserAssignmentNotificationConfigDAO" ) ITaskConfigDAO<TaskUserAssignmentNotificationConfig> taskUserAssignmentNotificationConfigDAO )
     {
-        return null;
+        TaskConfigService taskService = new TaskConfigService( );
+        taskService.setTaskConfigDAO( (ITaskConfigDAO) taskUserAssignmentNotificationConfigDAO );
+        return taskService;
     }
-
-    @Override
-    public String getDisplayConfigForm( HttpServletRequest request, Locale locale, ITask task )
-    {
-        return null;
-    }
-
 }

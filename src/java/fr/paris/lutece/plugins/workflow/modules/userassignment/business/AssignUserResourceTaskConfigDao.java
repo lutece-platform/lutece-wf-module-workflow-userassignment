@@ -35,7 +35,11 @@ package fr.paris.lutece.plugins.workflow.modules.userassignment.business;
 
 import fr.paris.lutece.plugins.workflowcore.business.config.ITaskConfigDAO;
 import fr.paris.lutece.util.sql.DAOUtil;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
 
+@ApplicationScoped
+@Named( "workflow-userassignment.assignUserResourceTaskConfigDao" )
 public class AssignUserResourceTaskConfigDao implements ITaskConfigDAO<AssignUserResourceTaskConfig>
 {
 

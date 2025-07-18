@@ -37,9 +37,10 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -47,10 +48,9 @@ import fr.paris.lutece.plugins.workflow.modules.userassignment.business.TaskUser
 import fr.paris.lutece.plugins.workflow.modules.userassignment.business.information.UserTaskInformation;
 import fr.paris.lutece.plugins.workflow.modules.userassignment.business.information.UserTaskInformationHome;
 import fr.paris.lutece.plugins.workflow.web.task.NoFormTaskComponent;
+import fr.paris.lutece.plugins.workflowcore.business.task.ITaskType;
 import fr.paris.lutece.plugins.workflowcore.service.config.ITaskConfigService;
 import fr.paris.lutece.plugins.workflowcore.service.task.ITask;
-import fr.paris.lutece.plugins.workflowcore.service.task.ITaskService;
-import fr.paris.lutece.plugins.workflowcore.service.task.TaskService;
 import fr.paris.lutece.portal.business.user.AdminUser;
 import fr.paris.lutece.portal.business.user.AdminUserHome;
 import fr.paris.lutece.portal.service.i18n.I18nService;
@@ -63,6 +63,7 @@ import fr.paris.lutece.util.html.HtmlTemplate;
  * UserAssignmentNotificationTaskComponent
  *
  */
+@ApplicationScoped
 public class UserAssignmentNotificationTaskComponent extends NoFormTaskComponent
 {
 
@@ -79,24 +80,21 @@ public class UserAssignmentNotificationTaskComponent extends NoFormTaskComponent
     private static final String PROPERTY_AGENT_NAME = "module.workflow.userassignment.markers.agent_name";
     private static final String PROPERTY_RESOURCE_ID = "module.workflow.userassignment.markers.resource_id";
     private static final String PROPERTY_RESOURCE_TYPE = "module.workflow.userassignment.markers.resource_type";
-
-	
-	private static final String BEAN_CONFIG = "workflow-userassignment.taskUserAssignmentNotificationConfigService";
-	
-    @Inject
-    @Named( BEAN_CONFIG )
-    private ITaskConfigService _taskConfigService;
     
     @Inject
-    @Named ( TaskService.BEAN_SERVICE )
-    private ITaskService _taskService;
+    public UserAssignmentNotificationTaskComponent( @Named( "workflow-userassignment.taskTypeUserAssignmentNotification" ) ITaskType taskType,
+            @Named( "workflow-userassignment.taskUserAssignmentNotificationConfigService" ) ITaskConfigService taskConfigService )
+    {
+        setTaskType( taskType );
+        setTaskConfigService( taskConfigService );
+    }
     
 	@Override
 	public String getDisplayConfigForm( HttpServletRequest request, Locale locale, ITask task )
 	{
 		Map<String, Object> model = new HashMap< >( );
 		
-		TaskUserAssignmentNotificationConfig config = _taskConfigService.findByPrimaryKey( task.getId( ) );
+		TaskUserAssignmentNotificationConfig config = getTaskConfigService( ).findByPrimaryKey( task.getId( ) );
 
 		model.put ( MARK_CONFIG, config );
         model.put( MARK_EMAIL_MARKERS, getAvailableMarkers( locale ) );
@@ -116,7 +114,7 @@ public class UserAssignmentNotificationTaskComponent extends NoFormTaskComponent
         	AdminUser user = AdminUserHome.findByPrimaryKey( Integer.parseInt( taskInformation.get( UserTaskInformation.TASK_USER_ID ) ) ) ;
         	
         	sbTaskInformation.append( I18nService.getLocalizedString( PROPERTY_HISTORY_INFO, locale ) );
-        	
+        	sbTaskInformation.append( StringUtils.SPACE );
         	if( user != null)
         	{
 	        	sbTaskInformation.append( user.getFirstName( ) );

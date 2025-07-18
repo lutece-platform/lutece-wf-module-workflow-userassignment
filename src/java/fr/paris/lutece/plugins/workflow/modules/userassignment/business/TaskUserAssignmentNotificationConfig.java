@@ -34,12 +34,16 @@
 package fr.paris.lutece.plugins.workflow.modules.userassignment.business;
 
 import fr.paris.lutece.plugins.workflowcore.business.config.TaskConfig;
+import jakarta.enterprise.context.Dependent;
+import jakarta.inject.Named;
 
 /**
  * 
  * TaskUserAssignmentNotificationConfig
  *
  */
+@Dependent
+@Named( "workflow-userassignment.taskUserAssignmentNotificationConfig" )
 public class TaskUserAssignmentNotificationConfig extends TaskConfig
 {
 	private String _strMessage;

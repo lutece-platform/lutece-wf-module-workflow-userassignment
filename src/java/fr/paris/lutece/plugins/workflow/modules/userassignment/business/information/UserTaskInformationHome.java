@@ -33,7 +33,7 @@
  */
 package fr.paris.lutece.plugins.workflow.modules.userassignment.business.information;
 
-import fr.paris.lutece.portal.service.spring.SpringContextService;
+import jakarta.enterprise.inject.spi.CDI;
 
 /**
  * This class provides instances management methods (create, find, ...) for {@link TaskInformation} objects
@@ -42,7 +42,7 @@ import fr.paris.lutece.portal.service.spring.SpringContextService;
 public final class UserTaskInformationHome
 {
     // Static variable pointed at the DAO instance
-    private static IUserTaskInformationDAO _dao = SpringContextService.getBean( "workflow-userassignment.userTaskInformationDAO" );
+    private static IUserTaskInformationDAO _dao = CDI.current( ).select( IUserTaskInformationDAO.class ).get( );
 
     /**
      * Private constructor

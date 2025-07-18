@@ -33,11 +33,14 @@
  */
 package fr.paris.lutece.plugins.workflow.modules.userassignment.service.task;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
 
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Instance;
+import jakarta.inject.Inject;
+import jakarta.servlet.http.HttpServletRequest;
 
 import fr.paris.lutece.plugins.userassignment.business.IResourceUserDAO;
 import fr.paris.lutece.plugins.userassignment.business.ResourceUser;
@@ -50,14 +53,16 @@ import fr.paris.lutece.plugins.workflowcore.service.task.ITask;
 import fr.paris.lutece.portal.business.user.AdminUser;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.plugin.PluginService;
-import fr.paris.lutece.portal.service.spring.SpringContextService;
 
+@ApplicationScoped
 public class AssignUserResourceTaskService implements IAssignUserResourceTaskService
 {
 
     private final Plugin _workflowPlugin;
     private final IResourceUserDAO _resourceUserDAO;
     private final ITaskConfigDAO<AssignUserResourceTaskConfig> _taskConfigDAO;
+    @Inject
+    private Instance<IAdminUserListProvider> _providerInstances;
 
     /**
      * Constructor
@@ -95,7 +100,9 @@ public class AssignUserResourceTaskService implements IAssignUserResourceTaskSer
     @Override
     public List<IAdminUserListProvider> getProviderList( )
     {
-        return SpringContextService.getBeansOfType( IAdminUserListProvider.class );
+        return _providerInstances != null && !_providerInstances.isUnsatisfied( ) ? 
+                _providerInstances.stream( ).toList( ) : 
+                    Collections.emptyList( );
     }
 
     @Override

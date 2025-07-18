@@ -38,8 +38,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.enterprise.context.Dependent;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.servlet.http.HttpServletRequest;
 
 import fr.paris.lutece.plugins.workflow.modules.userassignment.business.AssignUserResourceTaskConfig;
 import fr.paris.lutece.plugins.workflow.modules.userassignment.business.information.UserTaskInformation;
@@ -47,6 +49,8 @@ import fr.paris.lutece.plugins.workflow.modules.userassignment.business.informat
 import fr.paris.lutece.plugins.workflow.modules.userassignment.service.task.AssignUserResourceTask;
 import fr.paris.lutece.plugins.workflow.modules.userassignment.service.task.IAssignUserResourceTaskService;
 import fr.paris.lutece.plugins.workflowcore.business.config.ITaskConfig;
+import fr.paris.lutece.plugins.workflowcore.business.task.ITaskType;
+import fr.paris.lutece.plugins.workflowcore.service.config.ITaskConfigService;
 import fr.paris.lutece.plugins.workflowcore.service.task.ITask;
 import fr.paris.lutece.plugins.workflowcore.web.task.TaskComponent;
 import fr.paris.lutece.portal.business.user.AdminUser;
@@ -58,6 +62,7 @@ import fr.paris.lutece.util.html.HtmlTemplate;
  * This class represents a component for the task {@link AssignUserResourceTask}
  *
  */
+@Dependent
 public class AssignUserResourceTaskComponent extends TaskComponent
 {
 
@@ -76,10 +81,14 @@ public class AssignUserResourceTaskComponent extends TaskComponent
     private final IAssignUserResourceTaskService _assignUserResourceTaskService;
 
     @Inject
-    public AssignUserResourceTaskComponent( IAssignUserResourceTaskService assignUserFormResponseTaskService )
+    public AssignUserResourceTaskComponent( IAssignUserResourceTaskService assignUserFormResponseTaskService, 
+    		@Named( "workflow-userassignment.assignUserResourceTypeTask" ) ITaskType taskType,
+            @Named( "workflow-userassignment.assignUserResourceTaskConfigService" ) ITaskConfigService taskConfigService )
     {
         super( );
         _assignUserResourceTaskService = assignUserFormResponseTaskService;
+        setTaskType( taskType );
+        setTaskConfigService( taskConfigService );
     }
 
     @Override

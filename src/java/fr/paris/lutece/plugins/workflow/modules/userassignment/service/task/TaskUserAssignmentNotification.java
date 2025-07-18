@@ -38,9 +38,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.enterprise.context.Dependent;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.servlet.http.HttpServletRequest;
 
 
 import fr.paris.lutece.plugins.workflow.modules.userassignment.business.TaskUserAssignmentNotificationConfig;
@@ -64,6 +65,8 @@ import fr.paris.lutece.util.html.HtmlTemplate;
  * TaskUserAssignmentNotification
  *
  */
+@Dependent
+@Named( "workflow-userassignment.taskUserAssignmentNotification" )
 public class TaskUserAssignmentNotification extends SimpleTask
 {
     // Message

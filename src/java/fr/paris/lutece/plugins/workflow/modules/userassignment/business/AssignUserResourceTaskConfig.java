@@ -34,11 +34,15 @@
 package fr.paris.lutece.plugins.workflow.modules.userassignment.business;
 
 import fr.paris.lutece.plugins.workflowcore.business.config.TaskConfig;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
 
 /**
  * Configuration form task AssignUserResourceTask
  *
  */
+@ApplicationScoped
+@Named( "workflow-userassignment.assignUserResourceTaskConfig" )
 public class AssignUserResourceTaskConfig extends TaskConfig
 {
 

@@ -35,8 +35,10 @@ package fr.paris.lutece.plugins.workflow.modules.userassignment.service.task;
 
 import java.util.Locale;
 
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.enterprise.context.Dependent;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.servlet.http.HttpServletRequest;
 
 import fr.paris.lutece.plugins.workflow.modules.userassignment.business.information.UserTaskInformation;
 import fr.paris.lutece.plugins.workflow.modules.userassignment.business.information.UserTaskInformationHome;
@@ -47,6 +49,8 @@ import fr.paris.lutece.portal.business.user.AdminUser;
 import fr.paris.lutece.portal.business.user.AdminUserHome;
 import fr.paris.lutece.portal.service.i18n.I18nService;
 
+@Dependent
+@Named( "workflow-userassignment.assignUserResourceTask" )
 public class AssignUserResourceTask extends SimpleTask
 {
 

@@ -38,14 +38,17 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.servlet.http.HttpServletRequest;
 
 import fr.paris.lutece.plugins.workflow.modules.userassignment.business.information.UserTaskInformation;
 import fr.paris.lutece.plugins.workflow.modules.userassignment.business.information.UserTaskInformationHome;
 import fr.paris.lutece.plugins.workflow.modules.userassignment.service.task.IAssignUserResourceTaskService;
 import fr.paris.lutece.plugins.workflow.modules.userassignment.service.task.UnassignUserResourceTask;
 import fr.paris.lutece.plugins.workflow.web.task.NoConfigTaskComponent;
+import fr.paris.lutece.plugins.workflowcore.business.task.ITaskType;
 import fr.paris.lutece.plugins.workflowcore.service.task.ITask;
 import fr.paris.lutece.portal.business.user.AdminUser;
 import fr.paris.lutece.portal.business.user.AdminUserHome;
@@ -56,6 +59,7 @@ import fr.paris.lutece.util.html.HtmlTemplate;
  * This class represents a component for the task {@link UnassignUserResourceTask}
  *
  */
+@ApplicationScoped
 public class UnassignUserResourceTaskComponent extends NoConfigTaskComponent
 {
 
@@ -71,10 +75,12 @@ public class UnassignUserResourceTaskComponent extends NoConfigTaskComponent
     private final IAssignUserResourceTaskService _assignUserResourceTaskService;
 
     @Inject
-    public UnassignUserResourceTaskComponent( IAssignUserResourceTaskService assignUserFormResponseTaskService )
+    public UnassignUserResourceTaskComponent( IAssignUserResourceTaskService assignUserFormResponseTaskService,
+    		@Named( "workflow-userassignment.unassignUserResourceTypeTask" ) ITaskType taskType )
     {
         super( );
         _assignUserResourceTaskService = assignUserFormResponseTaskService;
+        setTaskType( taskType );
     }
 
     @Override

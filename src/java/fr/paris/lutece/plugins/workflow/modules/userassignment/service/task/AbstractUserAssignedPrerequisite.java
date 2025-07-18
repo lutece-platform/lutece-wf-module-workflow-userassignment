@@ -36,8 +36,8 @@ package fr.paris.lutece.plugins.workflow.modules.userassignment.service.task;
 import java.util.List;
 import java.util.Locale;
 
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.inject.Inject;
+import jakarta.servlet.http.HttpServletRequest;
 
 import fr.paris.lutece.plugins.workflow.service.prerequisite.IManualActionPrerequisiteService;
 import fr.paris.lutece.plugins.workflowcore.business.prerequisite.DefaultPrerequisiteConfig;

@@ -1,3 +1,6 @@
+--liquibase formatted sql
+--changeset workflow-userassignment:create_db_userassignment.sql
+--preconditions onFail:MARK_RAN onError:WARN
 DROP TABLE IF EXISTS workflow_task_assign_user_config;
 CREATE TABLE workflow_task_assign_user_config (
 	 id_task INT DEFAULT 0 NOT NULL ,

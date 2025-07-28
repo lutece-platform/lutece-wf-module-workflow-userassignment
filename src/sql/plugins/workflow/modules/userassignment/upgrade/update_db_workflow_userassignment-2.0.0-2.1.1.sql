@@ -1,3 +1,6 @@
+--liquibase formatted sql
+--changeset workflow-userassignment:update_db_workflow_userassignment-2.0.0-2.1.1.sql
+--preconditions onFail:MARK_RAN onError:WARN
 /*==================================================================*/
 /* Table structure for table workflow_task_userassignment_assignment_notification_cf */
 /*==================================================================*/

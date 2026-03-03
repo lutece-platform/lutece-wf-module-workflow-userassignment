@@ -3,22 +3,18 @@
 		<#if list_user_selection?size == 1>
 			<#list list_user_selection as user_selection >
 				<@input type='hidden' name='user_selection_id' value='${user_selection.userId}' />
-				<@staticText>
-					${user_selection.firstName} ${user_selection.lastName}
-				</@staticText>
+				<@p>${user_selection.firstName} ${user_selection.lastName}</@p>
 			</#list>
 		<#else>
 			<@select id='user_selection_id' name='user_selection_id'>
 				<#list list_user_selection as user_selection >
-					<option value="${user_selection.userId}"> ${user_selection.firstName} ${user_selection.lastName}</option>
+					<@option value='${user_selection.userId}' label='${user_selection.firstName} ${user_selection.lastName}' />
 				</#list>
 			</@select>
 		</#if>
 	</@formGroup>
 <#else>
 	<@formGroup>
-		<@staticText>
-			<em>#i18n{module.workflow.userassignment.task.user.noUnitSelection}</em>
-		</@staticText>
+		<@p><em>#i18n{module.workflow.userassignment.task.user.noUnitSelection}</em></@p>
 	</@formGroup>
 </#if>

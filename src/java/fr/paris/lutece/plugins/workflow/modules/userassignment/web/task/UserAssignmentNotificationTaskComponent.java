@@ -51,7 +51,6 @@ import fr.paris.lutece.plugins.workflow.web.task.NoFormTaskComponent;
 import fr.paris.lutece.plugins.workflowcore.business.task.ITaskType;
 import fr.paris.lutece.plugins.workflowcore.service.config.ITaskConfigService;
 import fr.paris.lutece.plugins.workflowcore.service.task.ITask;
-import fr.paris.lutece.portal.business.user.AdminUser;
 import fr.paris.lutece.portal.business.user.AdminUserHome;
 import fr.paris.lutece.portal.service.i18n.I18nService;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
@@ -69,14 +68,15 @@ public class UserAssignmentNotificationTaskComponent extends NoFormTaskComponent
 
 	//TEMPLATE
 	private static final String TEMPLATE_CONFIG = "admin/plugins/workflow/modules/userassignment/task_user_assignment_notification_config.html";
+	private static final String TEMPLATE_TASK_INFORMATION = "admin/plugins/workflow/modules/userassignment/task_user_assignment_notification_information.html";
 
 	//MARKS
 	private static final String MARK_CONFIG = "config";
     private static final String MARK_EMAIL_MARKERS = "email_markers";
+    private static final String MARK_USER = "user";
+    private static final String MARK_INFORMATION = "information";
 
 	//PROPERIES
-	private static final String PROPERTY_HISTORY_INFO = "module.workflow.userassignment.task_user_assignment_notification.history.information";
-	private static final String PROPERTY_HISTORY_INFO_USER_UNKNOWN = "module.workflow.userassignment.task_user_assignment_notification.history.information.user_unknown";
     private static final String PROPERTY_AGENT_NAME = "module.workflow.userassignment.markers.agent_name";
     private static final String PROPERTY_RESOURCE_ID = "module.workflow.userassignment.markers.resource_id";
     private static final String PROPERTY_RESOURCE_TYPE = "module.workflow.userassignment.markers.resource_type";
@@ -103,33 +103,28 @@ public class UserAssignmentNotificationTaskComponent extends NoFormTaskComponent
 		return html.getHtml( );
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * <p>
+	 * Rendered from a template, never concatenated in Java: plugin-workflow writes the task information as HTML
+	 * (LUT-33153), so the user name and the email address are escaped by the template.
+	 * </p>
+	 */
 	@Override
 	public String getDisplayTaskInformation( int nIdHistory, HttpServletRequest request, Locale locale, ITask task )
 	{
         UserTaskInformation taskInformation = UserTaskInformationHome.find( nIdHistory, task.getId( ) );
-        StringBuilder sbTaskInformation = new StringBuilder( );
 
-        if ( taskInformation != null )
+        if ( taskInformation == null )
         {
-        	AdminUser user = AdminUserHome.findByPrimaryKey( Integer.parseInt( taskInformation.get( UserTaskInformation.TASK_USER_ID ) ) ) ;
-        	
-        	sbTaskInformation.append( I18nService.getLocalizedString( PROPERTY_HISTORY_INFO, locale ) );
-        	sbTaskInformation.append( StringUtils.SPACE );
-        	if( user != null)
-        	{
-	        	sbTaskInformation.append( user.getFirstName( ) );
-	        	sbTaskInformation.append( StringUtils.SPACE );
-	        	sbTaskInformation.append( user.getLastName( ) );
-        	}
-        	else
-        	{
-        		sbTaskInformation.append( I18nService.getLocalizedString( PROPERTY_HISTORY_INFO_USER_UNKNOWN, locale ) );
-        	}
-        	sbTaskInformation.append( StringUtils.SPACE );
-        	sbTaskInformation.append( taskInformation.get( UserTaskInformation.TASK_INFORMATION ) );
+            return StringUtils.EMPTY;
         }
-        
-        return sbTaskInformation.toString( );
+
+        Map<String, Object> model = new HashMap<>( );
+        model.put( MARK_USER, AdminUserHome.findByPrimaryKey( Integer.parseInt( taskInformation.get( UserTaskInformation.TASK_USER_ID ) ) ) );
+        model.put( MARK_INFORMATION, taskInformation.get( UserTaskInformation.TASK_INFORMATION ) );
+
+        return AppTemplateService.getTemplate( TEMPLATE_TASK_INFORMATION, locale, model ).getHtml( );
 	}
 	
 	private ReferenceList getAvailableMarkers( Locale locale )

@@ -1,14 +1,14 @@
 <@row>
 	<@columns>
 		<@fieldSet legend='#i18n{module.workflow.userassignment.task.user.assign.config.title}'>
-			<@formGroup labelFor='providerName' labelKey='#i18n{module.workflow.userassignment.task.user.assign.config.user.choice}'>
+			<@fieldSet legend='#i18n{module.workflow.userassignment.task.user.assign.config.user.choice}' legendClass='form-label'>
 				<#if provider_list?has_content>
 					<#list provider_list as provider>
 						<#if selected_provider?? && selected_provider == provider.getName()><#assign checked=true><#else><#assign checked=false></#if>
-						<@radioButton name='providerName' value='${provider.getName()}' labelKey='#i18n{${provider.getLabelKey()}}' checked=checked />
+						<@radioButton name='providerName' id='providerName_${provider?index}' value='${provider.getName()}' labelKey='#i18n{${provider.getLabelKey()}}' checked=checked />
 					</#list>
 				</#if>
-			</@formGroup>
+			</@fieldSet>
 		</@fieldSet>
 	</@columns>
 </@row>

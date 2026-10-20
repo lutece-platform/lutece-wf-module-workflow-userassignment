@@ -1,28 +1,28 @@
 <@h level=3>#i18n{module.workflow.userassignment.task_user_assignment_notification.config.title}</@h>
 <@row>
 	<@columns xs=12 sm=6>
-		<@formGroup labelKey='#i18n{module.workflow.userassignment.task_user_assignment_notification.config.labelSubject}' helpKey='#i18n{module.workflow.userassignment.task_user_assignment_notification.config.labelSubjectHelp}'>
+		<@formGroup labelFor='subject' labelKey='#i18n{module.workflow.userassignment.task_user_assignment_notification.config.labelSubject}' helpKey='#i18n{module.workflow.userassignment.task_user_assignment_notification.config.labelSubjectHelp}'>
 			<@input type='text' name='subject' value='${(config.subject)!}' mandatory=mandatory></@input>
 		</@formGroup>
-		<@formGroup labelKey='#i18n{module.workflow.userassignment.task_user_assignment_notification.config.labelSenderName}' helpKey='#i18n{module.workflow.userassignment.task_user_assignment_notification.config.labelSenderNameHelp}' max=255>
+		<@formGroup labelFor='senderName' labelKey='#i18n{module.workflow.userassignment.task_user_assignment_notification.config.labelSenderName}' helpKey='#i18n{module.workflow.userassignment.task_user_assignment_notification.config.labelSenderNameHelp}' max=255>
 			<@input type='text' name='senderName' value='${(config.senderName)!}' mandatory=mandatory></@input>
 		</@formGroup>
-		<@formGroup labelKey='#i18n{module.workflow.userassignment.task_user_assignment_notification.config.labelSenderEmail}' helpKey='#i18n{module.workflow.userassignment.task_user_assignment_notification.config.labelSenderEmailHelp}' max=255>
+		<@formGroup labelFor='senderEmail' labelKey='#i18n{module.workflow.userassignment.task_user_assignment_notification.config.labelSenderEmail}' helpKey='#i18n{module.workflow.userassignment.task_user_assignment_notification.config.labelSenderEmailHelp}' max=255>
 			<@input type='text' name='senderEmail' value='${(config.senderEmail)!}' mandatory=mandatory></@input>
 		</@formGroup>
 	</@columns>
 	<@columns xs=12 sm=6>
-		<@formGroup labelKey='#i18n{module.workflow.userassignment.task_user_assignment_notification.config.labelRecipientsCc}' helpKey='#i18n{module.workflow.userassignment.task_user_assignment_notification.config.labelRecipientsCcHelp}'>
+		<@formGroup labelFor='recipientsCc' labelKey='#i18n{module.workflow.userassignment.task_user_assignment_notification.config.labelRecipientsCc}' helpKey='#i18n{module.workflow.userassignment.task_user_assignment_notification.config.labelRecipientsCcHelp}'>
 			<@input type='text' name='recipientsCc' value='${(config.recipientsCc)!}'></@input>
 		</@formGroup>
-		<@formGroup labelKey='#i18n{module.workflow.userassignment.task_user_assignment_notification.config.labelRecipientsBcc}' helpKey='#i18n{module.workflow.userassignment.task_user_assignment_notification.config.labelRecipientsBccHelp}'>
+		<@formGroup labelFor='recipientsBcc' labelKey='#i18n{module.workflow.userassignment.task_user_assignment_notification.config.labelRecipientsBcc}' helpKey='#i18n{module.workflow.userassignment.task_user_assignment_notification.config.labelRecipientsBccHelp}'>
 			<@input type='text' name='recipientsBcc' value='${(config.recipientsBcc)!}'></@input>
 		</@formGroup>
 	</@columns>
 </@row>
 <@row>
 	<@columns xs=12 sm=9>
-		<@formGroup labelKey='#i18n{module.workflow.userassignment.task_user_assignment_notification.config.labelMessage}'>
+		<@formGroup labelFor='message' labelKey='#i18n{module.workflow.userassignment.task_user_assignment_notification.config.labelMessage}'>
 		<@input type='textarea' name='message' value='${(config.message)!}' rows=6 cols=100 richtext=true mandatory=mandatory >${(config.message)!}</@input>
 		</@formGroup>
 	</@columns>

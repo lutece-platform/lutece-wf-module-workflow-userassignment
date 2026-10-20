@@ -32,7 +32,7 @@
 			<#if email_markers?exists>
 				<#list email_markers as marker>
 					<@listGroupItem>
-						<@p>${marker.name!} #i18n{module.workflow.userassignment.markers.label_marker} : <@span class="copy-content" params='data-title="#i18n{module.workflow.userassignment.markers.label_copy} ${marker.name!}"'>&#36;&#123;${marker.code!}&#33;&#125;</@span></@p>
+						<@p>${marker.name!} #i18n{module.workflow.userassignment.markers.label_marker} : <@span class="copy-content" params={"data-title": "#i18n{module.workflow.userassignment.markers.label_copy} ${marker.name!}"}>&#36;&#123;${marker.code!}&#33;&#125;</@span></@p>
 					</@listGroupItem>
 				</#list>
 			</#if>

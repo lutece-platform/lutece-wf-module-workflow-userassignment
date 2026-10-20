@@ -1,18 +1,22 @@
 <#if list_user_selection?has_content>
-	<@formGroup labelFor="user_selection_id" labelKey="#i18n{module.workflow.userassignment.task.user.labelUnassignUserSelection}">
-		<#if list_user_selection?size == 1>
+	<#if list_user_selection?size == 1>
+		<#-- one user: no choice to make, the caption is text (a label would point to the hidden field) -->
+		<@formGroup>
+			<@p class='form-label mb-0'>#i18n{module.workflow.userassignment.task.user.labelUnassignUserSelection}</@p>
 			<#list list_user_selection as user_selection >
 				<@input type='hidden' name='user_selection_id' value='${user_selection.userId}' />
 				<@p>${user_selection.firstName} ${user_selection.lastName}</@p>
 			</#list>
-		<#else>
+		</@formGroup>
+	<#else>
+		<@formGroup labelFor='user_selection_id' labelKey='#i18n{module.workflow.userassignment.task.user.labelUnassignUserSelection}'>
 			<@select id='user_selection_id' name='user_selection_id'>
 				<#list list_user_selection as user_selection >
 					<@option value='${user_selection.userId}' label='${user_selection.firstName} ${user_selection.lastName}' />
 				</#list>
 			</@select>
-		</#if>
-	</@formGroup>
+		</@formGroup>
+	</#if>
 <#else>
 	<@formGroup>
 		<@p><em>#i18n{module.workflow.userassignment.task.user.noUnitSelection}</em></@p>

@@ -40,6 +40,8 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.math.NumberUtils;
+
 import fr.paris.lutece.plugins.workflow.modules.userassignment.business.information.UserTaskInformation;
 import fr.paris.lutece.plugins.workflow.modules.userassignment.business.information.UserTaskInformationHome;
 import fr.paris.lutece.plugins.workflowcore.business.resource.ResourceHistory;
@@ -48,6 +50,7 @@ import fr.paris.lutece.plugins.workflowcore.service.task.SimpleTask;
 import fr.paris.lutece.portal.business.user.AdminUser;
 import fr.paris.lutece.portal.business.user.AdminUserHome;
 import fr.paris.lutece.portal.service.i18n.I18nService;
+import fr.paris.lutece.portal.service.util.AppLogService;
 
 @Dependent
 @Named( "workflow-userassignment.assignUserResourceTask" )
@@ -69,6 +72,9 @@ public class AssignUserResourceTask extends SimpleTask
         _resourceHistoryService = resourceHistoryService;
     }
 
+    /**
+     * {@inheritDoc} A missing or unknown user is logged and nothing is assigned: the task form validation refuses it before
+     */
     @Override
     public void processTask( int nIdResourceHistory, HttpServletRequest request, Locale locale )
     {
@@ -78,7 +84,13 @@ public class AssignUserResourceTask extends SimpleTask
         {
             String strUnitSelectionId = request.getParameter( PARAMETER_USER_ID );
 
-            AdminUser user = AdminUserHome.findByPrimaryKey( Integer.valueOf( strUnitSelectionId ) );
+            AdminUser user = AdminUserHome.findByPrimaryKey( NumberUtils.toInt( strUnitSelectionId, -1 ) );
+            if ( user == null )
+            {
+                AppLogService.error( "No user to assign the resource {} of type {} to (user_selection_id={})", resourceHistory.getIdResource( ),
+                        resourceHistory.getResourceType( ), strUnitSelectionId );
+                return;
+            }
 
             _assignUserResourceTaskService.assignUserToResource( user, resourceHistory.getIdResource( ), resourceHistory.getResourceType( ) );
 

@@ -43,6 +43,8 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.math.NumberUtils;
+
 import fr.paris.lutece.plugins.workflow.modules.userassignment.business.AssignUserResourceTaskConfig;
 import fr.paris.lutece.plugins.workflow.modules.userassignment.business.information.UserTaskInformation;
 import fr.paris.lutece.plugins.workflow.modules.userassignment.business.information.UserTaskInformationHome;
@@ -55,6 +57,8 @@ import fr.paris.lutece.plugins.workflowcore.service.task.ITask;
 import fr.paris.lutece.plugins.workflowcore.web.task.TaskComponent;
 import fr.paris.lutece.portal.business.user.AdminUser;
 import fr.paris.lutece.portal.business.user.AdminUserHome;
+import fr.paris.lutece.portal.service.message.AdminMessage;
+import fr.paris.lutece.portal.service.message.AdminMessageService;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.util.html.HtmlTemplate;
 
@@ -76,6 +80,12 @@ public class AssignUserResourceTaskComponent extends TaskComponent
     private static final String MARK_PROVIDER_LIST = "provider_list";
     private static final String MARK_SELECTED_PROVIDER = "selected_provider";
     private static final String MARK_USER = "user";
+
+    // Parameters
+    private static final String PARAMETER_USER_ID = "user_selection_id";
+
+    // Messages
+    private static final String MESSAGE_NO_USER_SELECTED = "module.workflow.userassignment.task.user.message.noUserSelected";
 
     // Services
     private final IAssignUserResourceTaskService _assignUserResourceTaskService;
@@ -145,9 +155,19 @@ public class AssignUserResourceTaskComponent extends TaskComponent
         return template.getHtml( );
     }
 
+    /**
+     * {@inheritDoc} The selected user must be one of the users the task proposes: when none can be assigned, the action is refused with a message
+     * instead of failing silently
+     */
     @Override
     public String doValidateTask( int nIdResource, String strResourceType, HttpServletRequest request, Locale locale, ITask task )
     {
+        int nIdUser = NumberUtils.toInt( request.getParameter( PARAMETER_USER_ID ), -1 );
+        List<AdminUser> usersList = _assignUserResourceTaskService.createUserList( request, task, nIdResource, strResourceType );
+        if ( usersList == null || usersList.stream( ).noneMatch( user -> user.getUserId( ) == nIdUser ) )
+        {
+            return AdminMessageService.getMessageUrl( request, MESSAGE_NO_USER_SELECTED, AdminMessage.TYPE_STOP );
+        }
         return null;
     }
 

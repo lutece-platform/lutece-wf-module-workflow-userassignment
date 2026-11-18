@@ -43,6 +43,8 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.math.NumberUtils;
+
 import fr.paris.lutece.plugins.workflow.modules.userassignment.business.information.UserTaskInformation;
 import fr.paris.lutece.plugins.workflow.modules.userassignment.business.information.UserTaskInformationHome;
 import fr.paris.lutece.plugins.workflow.modules.userassignment.service.task.IAssignUserResourceTaskService;
@@ -52,6 +54,8 @@ import fr.paris.lutece.plugins.workflowcore.business.task.ITaskType;
 import fr.paris.lutece.plugins.workflowcore.service.task.ITask;
 import fr.paris.lutece.portal.business.user.AdminUser;
 import fr.paris.lutece.portal.business.user.AdminUserHome;
+import fr.paris.lutece.portal.service.message.AdminMessage;
+import fr.paris.lutece.portal.service.message.AdminMessageService;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.util.html.HtmlTemplate;
 
@@ -70,6 +74,8 @@ public class UnassignUserResourceTaskComponent extends NoConfigTaskComponent
     // Marks
     private static final String MARK_USER_LIST = "list_user_selection";
     private static final String MARK_USER = "user";
+    private static final String PARAMETER_USER_ID = "user_selection_id";
+    private static final String MESSAGE_NO_USER_TO_UNASSIGN = "module.workflow.userassignment.task.user.message.noUserToUnassign";
 
     // Services
     private final IAssignUserResourceTaskService _assignUserResourceTaskService;
@@ -86,6 +92,13 @@ public class UnassignUserResourceTaskComponent extends NoConfigTaskComponent
     @Override
     public String doValidateTask( int nIdResource, String strResourceType, HttpServletRequest request, Locale locale, ITask task )
     {
+        // The user to unassign must be one of the users assigned to the resource (none is posted when nobody is assigned)
+        int nIdUser = NumberUtils.toInt( request.getParameter( PARAMETER_USER_ID ), -1 );
+        List<AdminUser> usersList = _assignUserResourceTaskService.listActiveUserByResource( nIdResource, strResourceType );
+        if ( usersList == null || usersList.stream( ).noneMatch( user -> user != null && user.getUserId( ) == nIdUser ) )
+        {
+            return AdminMessageService.getMessageUrl( request, MESSAGE_NO_USER_TO_UNASSIGN, AdminMessage.TYPE_STOP );
+        }
         return null;
     }
 

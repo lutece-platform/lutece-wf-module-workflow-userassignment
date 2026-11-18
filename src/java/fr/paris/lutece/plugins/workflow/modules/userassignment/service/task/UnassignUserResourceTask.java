@@ -40,6 +40,8 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.math.NumberUtils;
+
 import fr.paris.lutece.plugins.workflow.modules.userassignment.business.information.UserTaskInformation;
 import fr.paris.lutece.plugins.workflow.modules.userassignment.business.information.UserTaskInformationHome;
 import fr.paris.lutece.plugins.workflowcore.business.resource.ResourceHistory;
@@ -49,6 +51,7 @@ import fr.paris.lutece.portal.business.user.AdminUser;
 import fr.paris.lutece.portal.business.user.AdminUserHome;
 import fr.paris.lutece.portal.service.admin.AdminUserService;
 import fr.paris.lutece.portal.service.i18n.I18nService;
+import fr.paris.lutece.portal.service.util.AppLogService;
 
 @Dependent
 @Named( "workflow-userassignment.unassignUserResourceTask" )
@@ -79,7 +82,13 @@ public class UnassignUserResourceTask extends SimpleTask
         {
             String strUnitSelectionId = request.getParameter( PARAMETER_USER_ID );
 
-            AdminUser user = AdminUserHome.findByPrimaryKey( Integer.valueOf( strUnitSelectionId ) );
+            AdminUser user = AdminUserHome.findByPrimaryKey( NumberUtils.toInt( strUnitSelectionId, -1 ) );
+            if ( user == null )
+            {
+                AppLogService.error( "No user to unassign from the resource {} of type {} (user_selection_id={})", resourceHistory.getIdResource( ),
+                        resourceHistory.getResourceType( ), strUnitSelectionId );
+                return;
+            }
 
             _assignUserResourceTaskService.unassignUserToResource( user, resourceHistory.getIdResource( ), resourceHistory.getResourceType( ) );
 

@@ -164,4 +164,13 @@ public class TaskUserAssignmentNotification extends SimpleTask
         
         return model;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void doRemoveConfig( )
+    {
+        _taskConfigService.remove( getId( ) );
+    }
 }

@@ -104,7 +104,6 @@ public class UnassignUserResourceTask extends SimpleTask
     @Override
     public void doRemoveTaskInformation( int nIdHistory )
     {
-        ResourceHistory history = _resourceHistoryService.findByPrimaryKey( nIdHistory );
-        UserTaskInformationHome.remove( history.getIdResource( ), getId( ) );
+        UserTaskInformationHome.remove( nIdHistory, getId( ) );
     }
 }

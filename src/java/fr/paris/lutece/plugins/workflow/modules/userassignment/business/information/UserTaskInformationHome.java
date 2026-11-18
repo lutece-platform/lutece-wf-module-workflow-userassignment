@@ -93,4 +93,14 @@ public final class UserTaskInformationHome
         _dao.deleteByHistoryTask( nIdHistory, nIdTask );
     }
 
+    /**
+     * Removes every information a task wrote, whatever the execution
+     *
+     * @param nIdTask
+     *            the task
+     */
+    public static void removeByTask( int nIdTask )
+    {
+        _dao.deleteByTask( nIdTask );
+    }
 }

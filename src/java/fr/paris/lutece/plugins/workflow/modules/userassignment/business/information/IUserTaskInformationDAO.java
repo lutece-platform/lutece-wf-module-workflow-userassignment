@@ -65,4 +65,11 @@ public interface IUserTaskInformationDAO
      */
     void deleteByHistoryTask( int nIdHistory, int nIdTask );
 
+    /**
+     * Deletes every information a task wrote, whatever the execution
+     *
+     * @param nIdTask
+     *            the task
+     */
+    void deleteByTask( int nIdTask );
 }

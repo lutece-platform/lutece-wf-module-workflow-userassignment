@@ -33,6 +33,8 @@
  */
 package fr.paris.lutece.plugins.workflow.modules.userassignment.service.task;
 
+import fr.paris.lutece.plugins.workflowcore.service.config.ITaskConfigService;
+import javax.inject.Named;
 import fr.paris.lutece.plugins.workflow.modules.userassignment.business.information.UserTaskInformation;
 import fr.paris.lutece.plugins.workflow.modules.userassignment.business.information.UserTaskInformationHome;
 import fr.paris.lutece.plugins.workflowcore.business.resource.ResourceHistory;
@@ -48,6 +50,10 @@ import java.util.Locale;
 
 public class AssignCurrentUserResourceTask extends SimpleTask
 {
+    @Inject
+    @Named( "workflow-userassignment.assignUserResourceTaskConfigService" )
+    private ITaskConfigService _assignUserResourceTaskConfigService;
+
 
     private static final String MESSAGE_TASK_TITLE = "module.workflow.userassignment.task.currentuser.assign.title";
 
@@ -94,7 +100,17 @@ public class AssignCurrentUserResourceTask extends SimpleTask
     @Override
     public void doRemoveTaskInformation( int nIdHistory )
     {
-        ResourceHistory history = _resourceHistoryService.findByPrimaryKey( nIdHistory );
-        UserTaskInformationHome.remove( history.getIdResource( ), getId( ) );
+        // the information is stored by history, not by resource
+        UserTaskInformationHome.remove( nIdHistory, getId( ) );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void doRemoveConfig( )
+    {
+        _assignUserResourceTaskConfigService.remove( getId( ) );
+        UserTaskInformationHome.removeByTask( getId( ) );
     }
 }
